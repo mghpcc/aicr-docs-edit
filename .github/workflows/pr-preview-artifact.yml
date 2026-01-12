@@ -1,0 +1,60 @@
+on: 
+    pull_request:
+         types:
+           - opened
+           - synchronize
+
+jobs:
+  buildprstep:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: install
+        run: |
+          python3 -m pip install -U pip
+          python3 -m pip install -r requirements.txt
+          
+      - name: add_path
+        run: |
+          echo "/home/runner/.local/bin" >> $GITHUB_PATH
+
+      - name: build
+        run: |
+          mkdocs build
+
+      - name: show-pull-number
+        run: |
+          echo "github.event.number" = ${{ github.event.number }}
+
+      - name: create-artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ github.event.repository.name }}_PR${{ github.event.number }}_preview-artifact
+          path: /home/runner/work/mkdocs-template-edit/mkdocs-template-edit/_build/html/
+          
+      - name: Install SSH Client
+        uses: webfactory/ssh-agent@v0.4.1
+        with:
+          ssh-private-key: ${{ secrets.PREVIEW_WEB_PAGE_DEPLOY }}
+              
+      - name: deploy
+        uses: JamesIves/github-pages-deploy-action@3.7.1
+        with:
+          GITHUB_TOKEN: ${{ secrets.PREVIEW_WEB_PAGE_DEPLOY }}
+          SSH: true 
+          BRANCH: main # The branch the action should deploy to.
+          FOLDER: site # The folder the action should deploy.
+          CLEAN: false # Automatically remove deleted files from the deploy branch
+          REPOSITORY_NAME: lmilechin/mkdocs-preview-template
+          ACCESS_TOKEN: ${{ secrets.PREVIEW_WEB_PAGE_DEPLOY }}
+          TARGET_FOLDER: PR/PR${{ github.event.number }}
+          
+      - name: add URL to sumary
+        run: |
+          echo "URL for preview <a href=https://mit-orcd.github.io/mkdocs-preview-template/PR/PR${{ github.event.number }}>https://mit-orcd.github.io/mkdocs-preview-template/PR/PR${{ github.event.number }}</a>" >> $GITHUB_STEP_SUMMARY
+
