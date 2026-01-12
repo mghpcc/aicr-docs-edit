@@ -1,5 +1,5 @@
-site_name: Mkdocs Template
-site_url: https://squidfunk.github.io/mkdocs-material/
+site_name: AICR Documentation
+site_url: https://www.mghpcc.org/
 nav:
   - Home: index.md 
   - Index: tags.md
