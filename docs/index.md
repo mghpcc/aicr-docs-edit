@@ -1,3 +1,3 @@
-# Template Documentation Site
+# MA AI Compute Resource (AICR) Documentation
 
 
