@@ -1,0 +1,15 @@
+on: 
+    pull_request:
+         types:
+           - opened
+jobs:
+  comment-preview-url:
+    runs-on: ubuntu-latest
+    steps:
+      - name: add URL as comment
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          header: preview-url
+          message: |
+            URL for preview <a href=https://lmilechin.github.io/aicr-docs-preview/PR/PR${{ github.event.number }}>https://lmilechin.github.io/aicr-docs-preview/PR/PR${{ github.event.number }}</a>
