@@ -29,7 +29,7 @@ git push
     1. Go back to the [aicr-docs-edit](https://github.com/lmilechin/aicr-docs-edit) repo in your browser.
     2. If you just pushed the branch you'll see a link suggesting you create a PR, click it if it's there. If it's not there, click "Pull Requests" then "New pull request", click where it says "compare: main" and select your branch and then click "Create pull request".
     3. Fill out the form with a short description of your changes and title.
-    4. A few minutes after your PR is created a preview will be available. Given the PR number N, you can see the preview at https://lmilechin.github.io/aicr-docs-previews/PR/PRN. For example, for PR1, the preview is at https://lmilechin.github.io/aicr-docs-previews/PR/PR1.
+    4. A few minutes after your PR is created a preview will be available. Given the PR number N, you can see the preview at https://lmilechin.github.io/aicr-docs-preview/PR/PRN. For example, for PR1, the preview is at https://lmilechin.github.io/aicr-docs-preview/PR/PR1.
 7. At least one ORCD other team member should review the PR before merging. We may ask for additional changes.
 8. Once the changes have been approved the PR can be merged into the main branch. The web page will be updated automatically.
 
@@ -50,7 +50,7 @@ When a PR is submitted or updated a Github action step will automatically try an
 The PR action will produces and online and a downloadable preview of the changes.
 
 #### Online preview
-An online preview is automatically produced for each PR at the location https://lmilechin.github.io/aicr-docs-previews/PR/PRN, where
+An online preview is automatically produced for each PR at the location https://lmilechin.github.io/aicr-docs-preview/PR/PRN, where
 N is the number of the PR. Within a PR the preview link can be accessed by selecting the following sections
    * Show all checks
    * Details
