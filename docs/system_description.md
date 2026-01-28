@@ -1,14 +1,7 @@
----
-title: System Description
----
----
-description: An outline of the components of the AICR cluster. 
----
 
 # System Description
 
-Some description of the following which may or may not contain additional details.
-
+An outline of the components which make up the AICR cluster.
 
 ## Hardware
 
