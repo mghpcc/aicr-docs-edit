@@ -16,7 +16,7 @@ Do listen
 
 ## Adherence to Home Insititution Policies
 
-In addition to the rules and policies applicable to An set forth by ICR, each account holder and user of the AICR system is bound by the policies and guidelines put forth by their home institutions. This includes but is not limited to the security and data requirements outlined by that institution.A
+In addition to the rules and policies applicable to and set forth by AICR, each account holder and user of the AICR system is bound by the policies and guidelines put forth by their home institutions. This includes but is not limited to the security and data requirements outlined by that institution.
 
 If you are unclear on a policy or where your home institution's rule spply, please [contact your local institution's support](getting_help.md) for guidance.
 
