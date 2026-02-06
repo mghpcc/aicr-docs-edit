@@ -41,6 +41,6 @@ jobs:
           BRANCH: main # The branch the action should deploy to.
           FOLDER: site # The folder the action should deploy.
           CLEAN: false # Automatically remove deleted files from the deploy branch
-          REPOSITORY_NAME: lmilechin/aicr-docs
+          REPOSITORY_NAME: mghpcc/aicr-docs
           ACCESS_TOKEN: ${{ secrets.PRODUCTION_WEB_PAGE_DEPLOY }}
           TARGET_FOLDER: docs  
