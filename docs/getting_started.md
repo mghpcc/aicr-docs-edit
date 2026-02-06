@@ -10,8 +10,6 @@ This page contains the most common steps for setting up and getting
 started with your AICR account. We provide this page as a
 convenient reference to get started.
 
-Sections that are institution-specific will be shown under a list of tabs. Click on the tab for your institution and the rest of the page will stay on that tab.
-
 ## Getting an Account
 
 AICR is currently available to initial beta-test users. Each institution may have its own process for getting an account. When it is available we will include links to that information here.
@@ -23,7 +21,8 @@ you can log in. The different ORCD systems provide multiple ways to log in, incl
 
 ### OnDemand Portal
 
-You can log into OnDemand Web Portal with the link: [ONDEMAND_URL]()
+You can log into OnDemand Web Portal using your institutional credentials. Once the OnDemand Portal is available we will put the URL here.
+<!-- TODO: Add OnDemand URL -->
 
 ### Terminal with SSH
 
@@ -32,6 +31,8 @@ Log into AICR with the following command in a terminal window. Replace `USERNAME
 ```bash
 ssh USERNAME@[aicr-login-hostname]
 ```
+
+<!-- TODO: Update with Login node hostname -->
 
 Your AICR username is similar to but not the same as your institutional username. It would have been given to you when your account was created. If you are prompted for a password enter your institutional password.
 
@@ -171,17 +172,23 @@ To transfer a file from your computer to AICR:
 scp <local-file-name> USERNAME@[aicr-login-hostname]:<path-to-aicr-dir>
 ```
 
+<!-- TODO: Update with Login node hostname -->
+
 To transfer a file from an ORCD system to your computer:
 
 ``` bash
 scp USERNAME@[aicr-login-hostname]:<path-to-supercloud-dir>/<file-name> <path-to-local-dest>
 ```
 
+<!-- TODO: Update with Login node hostname -->
+
 Similar to `cp`, use the `-r` flag to copy over an entire directory and its contents. 
 
 ``` bash
 scp -r <local-dir-name> USERNAME@[aicr-login-hostname]:<path-to-supercloud-dir>
 ```
+
+<!-- TODO: Update with Login node hostname -->
 
 The `rsync` command can be used similarly and has some additional flags you can use. It also can be used to transfer only new or modified files to the destination, which makes it easy to keep a directory in "sync".
 
@@ -199,6 +206,8 @@ session to run your code in by executing the command:
 # Requesting one core and one GPU for an interactive job for 1 hour
 salloc -t 01:00:00 -p rtx-devel -G 1
 ```
+
+<!-- TODO: Check salloc command -->
 
 After you run this command you will be on a compute node and you can do
 a test-run of your code. This command will allocate one core and one GPU to your
