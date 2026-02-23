@@ -50,11 +50,11 @@ jobs:
           BRANCH: main # The branch the action should deploy to.
           FOLDER: site # The folder the action should deploy.
           CLEAN: false # Automatically remove deleted files from the deploy branch
-          REPOSITORY_NAME: lmilechin/aicr-docs-preview
+          REPOSITORY_NAME: mghpcc/aicr-docs-preview
           ACCESS_TOKEN: ${{ secrets.PREVIEW_WEB_PAGE_DEPLOY }}
           TARGET_FOLDER: PR/PR${{ github.event.number }}
           
       - name: add URL to sumary
         run: |
-          echo "URL for preview <a href=https://lmilechin.github.io/aicr-docs-preview/PR/PR${{ github.event.number }}>https://lmilechin.github.io/aicr-docs-preview/PR/PR${{ github.event.number }}</a>" >> $GITHUB_STEP_SUMMARY
+          echo "URL for preview <a href=https://mghpcc.github.io/aicr-docs-preview/PR/PR${{ github.event.number }}>https://mghpcc.github.io/aicr-docs-preview/PR/PR${{ github.event.number }}</a>" >> $GITHUB_STEP_SUMMARY
 
