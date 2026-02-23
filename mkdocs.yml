@@ -2,19 +2,19 @@ site_name: AICR Documentation
 site_url: https://www.mghpcc.org/
 nav:
   - Home: index.md
-  - AICR System: system_description.md
-  - Requesting Access: request_access.md #include prerequisites
-  - Getting Started: getting_started.md
+  - AICR System: system-description.md
+  - Requesting Access: request-access.md #include prerequisites
+  - Getting Started: getting-started.md
   - Files and Filesystem:
-    - Overview: filesystem_overview.md
-    - Transferring data: transferring_data.md # include Globus
+    - Overview: filesystem-overview.md
+    - Transferring data: transferring-data.md # include Globus
   - Software: software.md
-  - Running Jobs: basic_slurm.md
+  - Running Jobs: basic-slurm.md
   - Recipes:
-    - Snapshots: restoring_data.md
-  - Getting Help: getting_help.md
-  - Acceptable Use: acceptable_use.md
-  - Acknowledging AICR: acknowledging_aicr.md
+    - Snapshots: restoring-data.md
+  - Getting Help: getting-help.md
+  - Acceptable Use: acceptable-use.md
+  - Acknowledging AICR: acknowledging-aicr.md
   - About: about.md #This documentation is created by the teams at [these places], list links to pages we’ve borrowed from
   - Index: tags.md
 
