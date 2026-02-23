@@ -160,7 +160,7 @@ Finally, click on the box below for a list of Linux Commands. If you are new to 
 ## Transferring Files
 
 One of the first tasks is to get your code, data, and any other files
-you need into your home directory on the system. Review the [Transferring Data](transferring_data.md) page for a full description of how to move data on and off AICR.
+you need into your home directory on the system. Review the [Transferring Data](transferring-data.md) page for a full description of how to move data on and off AICR.
 
 If your code is in github you can use git commands on the system to clone your repository
 to your home directory. The primary method we recommend for copying your files to and from AICR is through [Globus](https://www.globus.org/). You can also transfer your files from your computer using the OnDemand File Browser or by using the commands `scp` or `rsync`.
@@ -215,8 +215,8 @@ a test-run of your code. This command will allocate four cores and one RTX-6000 
 job. If your test code needs additional cores or uses a lot of
 memory, you should request additional resources as needed.
 
-We provide the basics of running jobs on the [Running Jobs](basic_slurm.md) page. For more information you can consult the documentation at your home institution.
+We provide the basics of running jobs on the [Running Jobs](basic-slurm.md) page. For more information you can consult the documentation at your home institution.
 
 ## Getting Help
 
-AICR is being supported by the staff at your home institution's research computing group. If you need help or have any questions you can reach out to them. See [Getting Help](getting_help.md) for more information.
+AICR is being supported by the staff at your home institution's research computing group. If you need help or have any questions you can reach out to them. See [Getting Help](getting-help.md) for more information.
