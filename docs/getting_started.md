@@ -17,7 +17,7 @@ AICR is currently available to initial beta-test users. Each institution may hav
 ## Logging In
 
 The first thing you should do when you get a new account is verify that
-you can log in. The different ORCD systems provide multiple ways to log in, including both ssh and web portals. Links to instructions for the different systems are below.
+you can log in. You can log in using either the AICR OnDemand portal or through SSH in the terminal.
 
 ### OnDemand Portal
 
@@ -79,7 +79,7 @@ people request the same software, we may consider adding it as a module.
 
 ## Linux Command Line
 
-Every ORCD system runs Linux, so much of what you do on the cluster
+AICR runs Linux, so much of what you do on the cluster
 involves the Linux command line. That doesn't mean you have to be a
 Linux expert to use the system! However the more you can get comfortable
 with the Linux command line and a handful of basic commands, the easier
@@ -160,8 +160,9 @@ Finally, click on the box below for a list of Linux Commands. If you are new to 
 ## Transferring Files
 
 One of the first tasks is to get your code, data, and any other files
-you need into your home directory on the system. If your code is in
-github you can use git commands on the system to clone your repository
+you need into your home directory on the system. Review the [Transferring Data](transferring_data.md) page for a full description of how to move data on and off AICR.
+
+If your code is in github you can use git commands on the system to clone your repository
 to your home directory. The primary method we recommend for copying your files to and from AICR is through [Globus](https://www.globus.org/). You can also transfer your files from your computer using the OnDemand File Browser or by using the commands `scp` or `rsync`.
 
 You can use `scp` or `rsync` from the command line on your local computer. Both commands work similarly to the `cp` command, following the pattern `<command> <source> <destination>`, the only difference being that you will need to include the hostname of the system you are transferring to or from. For this reason you *must* run this command from the terminal on your computer *before you've logged in*.
@@ -174,10 +175,10 @@ scp <local-file-name> USERNAME@[aicr-login-hostname]:<path-to-aicr-dir>
 
 <!-- TODO: Update with Login node hostname -->
 
-To transfer a file from an ORCD system to your computer:
+To transfer a file from AICR to your computer:
 
 ``` bash
-scp USERNAME@[aicr-login-hostname]:<path-to-supercloud-dir>/<file-name> <path-to-local-dest>
+scp USERNAME@[aicr-login-hostname]:<path-to-aicr-dir>/<file-name> <path-to-local-dest>
 ```
 
 <!-- TODO: Update with Login node hostname -->
@@ -185,7 +186,7 @@ scp USERNAME@[aicr-login-hostname]:<path-to-supercloud-dir>/<file-name> <path-to
 Similar to `cp`, use the `-r` flag to copy over an entire directory and its contents. 
 
 ``` bash
-scp -r <local-dir-name> USERNAME@[aicr-login-hostname]:<path-to-supercloud-dir>
+scp -r <local-dir-name> USERNAME@[aicr-login-hostname]:<path-to-aicr-dir>
 ```
 
 <!-- TODO: Update with Login node hostname -->
@@ -203,14 +204,14 @@ moderate personal laptop or desktop you can request an interactive
 session to run your code in by executing the command:
 
 ``` bash
-# Requesting one core and one GPU for an interactive job for 1 hour
-salloc -t 01:00:00 -p rtx-devel -G 1
+# Requesting four cores and one RTX-6000 GPU for an interactive job for 1 hour
+salloc -t 01:00:00 -p rtx-devel -c 4 -G 1
 ```
 
 <!-- TODO: Check salloc command -->
 
 After you run this command you will be on a compute node and you can do
-a test-run of your code. This command will allocate one core and one GPU to your
+a test-run of your code. This command will allocate four cores and one RTX-6000 GPUs to your
 job. If your test code needs additional cores or uses a lot of
 memory, you should request additional resources as needed.
 
