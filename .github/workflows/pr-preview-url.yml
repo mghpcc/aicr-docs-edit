@@ -12,4 +12,4 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           header: preview-url
           message: |
-            URL for preview <a href=https://lmilechin.github.io/aicr-docs-preview/PR/PR${{ github.event.number }}>https://lmilechin.github.io/aicr-docs-preview/PR/PR${{ github.event.number }}</a>
+            URL for preview <a href=https://mghpcc.github.io/aicr-docs-preview/PR/PR${{ github.event.number }}>https://mghpcc.github.io/aicr-docs-preview/PR/PR${{ github.event.number }}</a>
