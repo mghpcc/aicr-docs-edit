@@ -17,7 +17,7 @@ AICR is currently available to initial beta-test users. Each institution may hav
 ## Logging In
 
 The first thing you should do when you get a new account is verify that
-you can log in. You can log in using either the AICR OnDemand portal or through SSH in the terminal.
+you can log in. You can log in using either the AICR OnDemand portal or through SSH in the terminal. See the [Logging In](logging-in.md) page for more details.
 
 ### OnDemand Portal
 
