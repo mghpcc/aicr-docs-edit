@@ -8,7 +8,7 @@ nav:
   - Logging In: logging-in.md
   - Files and Filesystem:
     - Overview: filesystem-overview.md
-    - Transferring data: transferring-data.md # include Globus
+    - Transferring data: transferring-data.md
   - Software: software.md
   - Running Jobs: basic-slurm.md
   - Recipes:
