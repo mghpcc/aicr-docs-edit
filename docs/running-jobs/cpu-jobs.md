@@ -30,24 +30,30 @@ The `cpu` partition provides high-memory nodes for data analysis, preprocessing,
 
 For GPU-accelerated work (training, inference, anything using CUDA), use the `rtx-*` or `b200-*` partitions instead.
 
+!!! tip
+    AICR is not meant for CPU workloads. A small CPU-only partition is provided for small data analysis tasks related to your GPU jobs. Heavy CPU workloads should be done on your home institution's cluster.
+
 ## Example: Basic CPU Job
+
+The following is an example job script for a CPU job with 16 cores and 32GB of RAM.
 
 ```bash
 #!/bin/bash
 #SBATCH --job-name=data_analysis
 #SBATCH --partition=cpu
 #SBATCH --nodes=1
-#SBATCH --cpus-per-task=32
-#SBATCH --mem=128G
+#SBATCH --cpus-per-task=16
+#SBATCH --mem=32G
 #SBATCH --time=04:00:00
 #SBATCH --account=ACCOUNT_NAME
 #SBATCH --output=%x-%j.out
 
-module purge
-module load python
+module load miniforge
 
 python analyze_data.py
 ```
+
+<!-- TODO: Probably don't need this, AICR is not the right place.
 
 ## Parallel Analysis with Dask
 
@@ -116,8 +122,12 @@ srun --mpi=pmix python parallel_analysis.py
 !!! note
     AICR uses PMIx for MPI process management. Always pass `--mpi=pmix` to `srun`.
 
+-->
+
 ## See Also
 
 - [Slurm Basics](slurm-basics.md) — general job submission
+<!-- TODO: Review
 - [Parallel Data Analysis with Dask](../recipes/dask.md) — detailed Dask recipe
 - [Working with Large Datasets](../ai-tools/large-datasets.md) — staging and I/O patterns
+-->
