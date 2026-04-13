@@ -10,28 +10,27 @@ tags:
 
 The `cpu` partition provides high-memory nodes for data analysis, preprocessing, and workflow orchestration. These nodes do not have GPUs — use them for work that benefits from many CPU cores and large memory rather than GPU acceleration.
 
+!!! tip
+    AICR is not meant for CPU workloads. A small CPU-only partition is provided as a convenience for small data analysis tasks related to your GPU jobs. Heavy CPU workloads should be done on your home institution's cluster.
+
+## When to Use the CPU Partition
+
+- **Data preprocessing**: cleaning, transforming, or merging large datasets before GPU training
+- **Post-processing**: aggregating results, generating reports, statistical analysis
+- **Workflow orchestration**: coordinating multi-step pipelines that launch GPU jobs
+
+For GPU-accelerated work (training, inference, anything using CUDA), use the `rtx-*` or `b200-*` partitions instead. See [GPU Jobs](gpu-jobs.md) for more information.
+
 ## CPU Partition Specs
 
 | Property | Value |
 |----------|-------|
-| Nodes | w-series (5 nodes) |
+| Nodes | Intel w-series (5 nodes) |
 | Cores per node | 128 |
 | Memory per node | 1 TB |
 | GPUs | None |
 | Max wall time | 24 hours |
 | Default time | 15 minutes |
-
-## When to Use the CPU Partition
-
-- **Data preprocessing**: cleaning, transforming, or merging large datasets before GPU training
-- **Parallel analysis**: running analysis in parallel across many cores with Dask, mpi4py, or GNU Parallel
-- **Post-processing**: aggregating results, generating reports, statistical analysis
-- **Workflow orchestration**: coordinating multi-step pipelines that launch GPU jobs
-
-For GPU-accelerated work (training, inference, anything using CUDA), use the `rtx-*` or `b200-*` partitions instead.
-
-!!! tip
-    AICR is not meant for CPU workloads. A small CPU-only partition is provided for small data analysis tasks related to your GPU jobs. Heavy CPU workloads should be done on your home institution's cluster.
 
 ## Example: Basic CPU Job
 
