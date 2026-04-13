@@ -11,7 +11,7 @@ tags:
 View your running and pending jobs:
 
 ```bash
-$ squeue -u $USER
+$ squeue --me
 ```
 
 View jobs on a specific partition:
