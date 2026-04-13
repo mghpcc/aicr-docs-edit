@@ -213,7 +213,9 @@ Slurm keeps track of job parameters in environment variables, which can sometime
 ## See Also
 
 - [GPU Jobs](gpu-jobs.md) — requesting GPUs and choosing partitions
-- [Data Analysis and Processing](analysis.md) — CPU partition for data work
-- [Job Arrays](job-arrays.md) — parameter sweeps
+- [CPU Jobs for Data Analysis and Processing](cpu-jobs.md) — CPU partition for data work
 - [Monitoring Jobs](monitoring.md) — checking status and resource usage
+<!-- TODO: Add later
+- [Job Arrays](job-arrays.md) — parameter sweeps
 - [Job Troubleshooting](troubleshooting.md) — common failures
+ -->
