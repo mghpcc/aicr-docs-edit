@@ -31,19 +31,16 @@ The simplest way to request GPUs:
 #SBATCH --gpus-per-node=8           # all 8 GPUs on a node
 ```
 
-To request a specific GPU type, use the following syntax:
+Your partition will specify the GPU type:
 
 ```bash
-#SBATCH --gpus=rtx6000:4    # 4 RTX PRO 6000 GPUs
-#SBATCH --gpus=b200:8       # 8 B200 GPUs
+#SBATCH --gpus=4               # 4  GPUs
+#SBATCH --partition=rtx-devel  # The rtx-devel partition has RTX Pro 6000 GPUs
 ```
 
-<!-- TODO: GRES type names (rtx6000, b200) are based on the gres.conf.j2 template pattern — verify against production gres.conf once deployed -->
-
 !!! note
-    Match your partition to your GPU type. Use `rtx-batch`/`rtx-devel` for RTX GPUs and `b200-batch`/`b200-devel` for B200 GPUs.
 
-    If you specify the partition you do not need to specify the GPU type, since partitions are homogenous (have only one type of GPU).
+    Partitions on AICR are homogenous, meaning node configurations are identical within a partition, including the GPU type. Since you include the partition in your job script you do not need to specify the GPU type.
 
 ## Single-GPU Job
 
