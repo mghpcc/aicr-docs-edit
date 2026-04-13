@@ -6,7 +6,7 @@ tags:
   - Python
 ---
 
-# Analysis and Data Processing
+# CPU Jobs for Data Analysis and Processing
 
 The `cpu` partition provides high-memory nodes for data analysis, preprocessing, and workflow orchestration. These nodes do not have GPUs — use them for work that benefits from many CPU cores and large memory rather than GPU acceleration.
 
