@@ -7,7 +7,7 @@ tags:
 
 # GPU Jobs
 
-AICR's primary resource is its GPUs. This page covers how to request GPUs, choose the right partition, and submit GPU jobs. For GPU hardware details, see [GPU Overview](../gpu/overview.md).
+AICR's primary resource is its GPUs. This page covers how to request GPUs, choose the right partition, and submit GPU jobs. <!-- TODO: Adding later For GPU hardware details, see [GPU Overview](../gpu/overview.md).-->
 
 ## Choosing a Partition
 
@@ -120,7 +120,9 @@ print(torch.cuda.get_device_name(0))   # GPU model name
 
 ## See Also
 
+<!-- Adding Later
 - [GPU Overview](../gpu/overview.md) — hardware specs and architecture
 - [Multi-GPU Computing](../gpu/multi-gpu.md) — NCCL and GPU-to-GPU communication
 - [Distributed Training](../ai-tools/distributed-training.md) — scaling beyond one node
+ -->
 - [Slurm Basics](slurm-basics.md) — general job submission
