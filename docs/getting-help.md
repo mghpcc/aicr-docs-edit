@@ -11,13 +11,13 @@ AICR support is provided through the research computing teams at each participat
 
 | Institution | Support Team | Contact |
 |-------------|-------------|---------|
-| Boston University | Research Computing Services (RCS) | [BU RCS](https://www.bu.edu/tech/support/research/) |
-| Harvard | FAS Research Computing (FASRC) | [FASRC](https://www.rc.fas.harvard.edu/) |
-| MIT | Office of Research Computing and Data (ORCD) | [MIT ORCD](https://orcd.mit.edu/) |
-| Northeastern | Research Computing (RC) | [NEU RC](https://rc.northeastern.edu/) |
-| UMass | Unity Research Computing Platform | [Unity](https://unityhpc.org/) |  
-| URI | Unity Research Computing Platform | [Unity](https://unityhpc.org/) | 
-| Yale | Yale Center for Research Computing (YCRC) | [YCRC](https://research.computing.yale.edu/) |
+| Boston University | [Research Computing Services (RCS)](https://www.bu.edu/tech/support/research/) | help@scc.bu.edu |
+| Harvard | TBD | TBD |
+| MIT | Office of Research Computing and Data (ORCD) | [MIT ORCD](https://orcd.mit.edu/) | orcd-help-aicr@mit.edu |
+| Northeastern | Research Computing (RC) | [NEU RC](https://rc.northeastern.edu/) |  rchelp@northeastern.edu | 
+| UMass | [Unity Research Computing Platform](https://unityhpc.org/) | hpc@umass.edu |
+| URI | [Unity Research Computing Platform](https://unityhpc.org/) | hpc@umass.edu |
+| Yale | [Yale Center for Research Computing (YCRC)](https://research.computing.yale.edu/) | research.computing@yale.edu |
 
 !!! tip
     Your institutional team is the best first point of contact. They know the AICR system and can also help with institution-specific policies, accounts, and allocations.
