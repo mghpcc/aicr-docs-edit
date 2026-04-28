@@ -71,7 +71,9 @@ markdown_extensions:
   - toc:
       permalink: True
   - attr_list
-  - admonition
   - def_list
   - tables
   - md_in_html
+
+extra_css:
+  - stylesheets/extra.css
