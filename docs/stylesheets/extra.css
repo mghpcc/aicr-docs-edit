@@ -1,0 +1,70 @@
+/* AICR logo styling */
+.md-header__button.md-logo img,
+.md-header__button.md-logo svg {
+  height: 1.6rem;
+}
+
+.md-header {
+  background-color: #37474f;
+}
+
+/* Homepage cards */
+.aicr-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.2rem;
+  margin: 1.5rem 0;
+}
+
+@media (max-width: 768px) {
+  .aicr-cards {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .aicr-cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.aicr-card {
+  border: 1px solid var(--md-default-fg-color--lightest);
+  border-radius: 0.4rem;
+  padding: 1.2rem 1.4rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.aicr-card:hover {
+  border-color: var(--md-accent-fg-color);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.aicr-card h3 {
+  margin: 0 0 0.4rem 0;
+  font-size: 1.1rem;
+  border-bottom: 2px solid var(--md-accent-fg-color);
+  padding-bottom: 0.4rem;
+}
+
+.aicr-card p {
+  margin: 0 0 0.6rem 0;
+  font-size: 0.85rem;
+  color: var(--md-default-fg-color--light);
+}
+
+.aicr-card ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.aicr-card ul li {
+  margin: 0.25rem 0;
+  font-size: 0.9rem;
+}
+
+.aicr-card ul li::before {
+  content: "→ ";
+  color: var(--md-accent-fg-color);
+}
