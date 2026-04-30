@@ -7,8 +7,8 @@ nav:
   - Getting Started: getting-started.md
   - Logging In: logging-in.md
   - Files and Filesystem:
-    - Overview: filesystems-file-transfer/filesystem-overview.md
-    - Transferring data: filesystems-file-transfer/transferring-data.md
+    - Overview: files/overview.md
+    - Transferring data: files/transferring-data.md
   - Software: software.md
   - Running Jobs: basic-slurm.md
   - Recipes:
