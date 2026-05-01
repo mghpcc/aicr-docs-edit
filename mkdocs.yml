@@ -10,7 +10,13 @@ nav:
     - Overview: filesystems-file-transfer/filesystem-overview.md
     - Transferring data: filesystems-file-transfer/transferring-data.md
   - Software: software.md
-  - Running Jobs: basic-slurm.md
+  - Running Jobs:
+    - Slurm Basics: running-jobs/slurm-basics.md
+    - GPU Jobs: running-jobs/gpu-jobs.md
+    - CPU Jobs: running-jobs/cpu-jobs.md
+#    - Job Arrays: running-jobs/job-arrays.md
+    - Monitoring: running-jobs/monitoring.md
+#    - Troubleshooting: running-jobs/troubleshooting.md
   - Recipes:
     - Snapshots: restoring-data.md
   - Getting Help: getting-help.md
