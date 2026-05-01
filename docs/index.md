@@ -1,4 +1,7 @@
-# MA AI Compute Resource (AICR) Documentation
+---
+hide:
+  - toc
+---
 
 Welcome to the documentation for the **Massachusetts AI Compute Resource (AICR)** — a multi-institutional GPU cluster for AI research, serving Boston University, Harvard, MIT, Northeastern, UMass (five campuses), and Yale. Part of the [Massachusetts AI Hub](https://aihub.masstech.org/), housed at the [MGHPCC](https://www.mghpcc.org/) in Holyoke, MA.
 
