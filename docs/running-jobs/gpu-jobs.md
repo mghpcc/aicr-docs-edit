@@ -93,7 +93,7 @@ torchrun --nproc_per_node=4 train.py
 Inside a running job, check that GPUs are visible with:
 
 ```bash
-$ nvidia-smi
+nvidia-smi
 ```
 
 This shows GPU model, memory, utilization, and temperature. If no GPUs appear, verify that you requested them with `--gpus` and submitted to a GPU partition.

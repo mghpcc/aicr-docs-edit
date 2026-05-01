@@ -32,7 +32,7 @@ Default memory: 1 GB per CPU. Development (devel) partitions limited to 4 concur
 To see the partitions on AICR, run the `sinfo` command:
 
 ```bash
-$ sinfo
+sinfo
 ```
 
 The `sinfo` command will tell you the names of the partitions, what their time limits are, how many nodes are in each state, and the names of the nodes in the partitions.

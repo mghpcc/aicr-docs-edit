@@ -11,13 +11,13 @@ tags:
 View your running and pending jobs:
 
 ```bash
-$ squeue --me
+squeue --me
 ```
 
 View jobs on a specific partition:
 
 ```bash
-$ squeue -p rtx-batch
+squeue -p rtx-batch
 ```
 
 ## Detailed Job Information
@@ -25,7 +25,7 @@ $ squeue -p rtx-batch
 Inspect a running or pending job:
 
 ```bash
-$ scontrol show job JOBID
+scontrol show job JOBID
 ```
 
 This shows the full job configuration: allocated nodes, resources, time limits, working directory, and more.
@@ -35,13 +35,13 @@ This shows the full job configuration: allocated nodes, resources, time limits, 
 After a job completes, use `sacct` to see what resources it actually used:
 
 ```bash
-$ sacct -j JOBID --format=JobID,JobName,Partition,Elapsed,MaxRSS,State
+sacct -j JOBID --format=JobID,JobName,Partition,Elapsed,MaxRSS,State
 ```
 
 Check your recent job history:
 
 ```bash
-$ sacct -u $USER --starttime=now-7days --format=JobID,JobName,Partition,Elapsed,State,ExitCode
+sacct -u $USER --starttime=now-7days --format=JobID,JobName,Partition,Elapsed,State,ExitCode
 ```
 
 !!! tip
@@ -64,13 +64,13 @@ $ sacct -u $USER --starttime=now-7days --format=JobID,JobName,Partition,Elapsed,
 ## Partition and Node Status
 
 ```bash
-$ sinfo
+sinfo
 ```
 
 See which nodes are available, allocated, or down. Useful for checking whether your target partition has capacity.
 
 ```bash
-$ sinfo -p rtx-batch --format="%N %T %G %m"
+sinfo -p rtx-batch --format="%N %T %G %m"
 ```
 
 This shows node names, state, GPUs, and memory for a specific partition.
@@ -78,19 +78,19 @@ This shows node names, state, GPUs, and memory for a specific partition.
 ## Cancel a Job
 
 ```bash
-$ scancel JOBID
+scancel JOBID
 ```
 
 Cancel all your jobs:
 
 ```bash
-$ scancel -u $USER
+scancel -u $USER
 ```
 
 Cancel a specific array task:
 
 ```bash
-$ scancel JOBID_TASKID
+scancel JOBID_TASKID
 ```
 
 ## Checking GPU Utilization in a Running Job
@@ -98,8 +98,8 @@ $ scancel JOBID_TASKID
 If you have a running GPU job, check GPU utilization by connecting to the node:
 
 ```bash
-$ squeue -u $USER                    # find your node name
-$ ssh NODE_NAME nvidia-smi           # check GPU usage (requires active job on that node)
+squeue -u $USER                    # find your node name
+ssh NODE_NAME nvidia-smi           # check GPU usage (requires active job on that node)
 ```
 
 !!! note
