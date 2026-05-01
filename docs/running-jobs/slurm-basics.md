@@ -19,15 +19,15 @@ AICR has a few different types of nodes (CPU only nodes, different types of GPUs
 
 The partitions on AICR are:
 
-| Partition | GPUs/Node | Max Time | Default Time | Use Case |
+| <div style="width:6em">Partition</div> | GPU Type | Max Time | Default Time | Use Case |
 |-----------|-----------|----------|--------------|----------|
 | `cpu` | — | 24h | 15 min | Data analysis, workflow orchestration |
-| `rtx-batch` | 8 | 24h | 1h | RTX GPU batch jobs |
-| `rtx-devel` | 8 | 4h | 15 min | RTX GPU interactive development and testing |
-| `b200-batch` | 8 | 24h | 1h | B200 GPU batch jobs |
-| `b200-devel` | 8 | 4h | 15 min | B200 GPU interactive development and testing |
+| `rtx-batch` | RTX Pro 6000 | 24h | 1h | RTX GPU batch jobs |
+| `rtx-devel` | RTX Pro 6000 | 4h | 15 min | RTX GPU interactive development and testing |
+| `b200-batch` | B200 | 24h | 1h | B200 GPU batch jobs |
+| `b200-devel` | B200 | 4h | 15 min | B200 GPU interactive development and testing |
 
-Default memory: 1 GB per CPU. Development (devel) partitions limited to 4 concurrent jobs per user. For GPU hardware details, see [GPU Overview](../gpu/overview.md).
+Default memory: 1 GB per CPU. Development (devel) partitions limited to 4 concurrent jobs per user. For GPU hardware details, see [System Description](../system-description.md).
 
 To see the partitions on AICR, run the `sinfo` command:
 
@@ -42,12 +42,14 @@ The `sinfo` command will tell you the names of the partitions, what their time l
 To see what resources are available run `sinfo`. The `sinfo` command will show how many nodes are in each state. Nodes in "idle" state have all cores available, nodes in "mix" state have some cores available, and nodes in "alloc" state have no cores or other resources available.
 
 ```
-sinfo -p mit_normal
-PARTITION  AVAIL  TIMELIMIT  NODES  STATE  NODELIST
-mit_normal    up   12:00:00      2   resv  node[2704-2705]
-mit_normal    up   12:00:00      1   mix   node1707
-mit_normal    up   12:00:00      1   alloc node1708
-mit_normal    up   12:00:00     29   idle  node[1600-1625,1706,1806-1807]
+PARTITION    AVAIL  TIMELIMIT  NODES  STATE NODELIST
+cpu             up 1-00:00:00      1    mix w0001
+cpu             up 1-00:00:00      4   idle w[0002-0005]
+rtx-batch       up 1-00:00:00     17   idle a[0001-0017]
+b200-batch      up 1-00:00:00     28   idle b[0001-0023,0026-0028]
+rtx-devel       up    4:00:00      1    mix a0018
+rtx-devel       up    4:00:00      1   idle a0019
+b200-devel      up    4:00:00      3   idle b[0029-0031]
 ```
 
 Common node states are:
@@ -56,20 +58,28 @@ Common node states are:
 - `mix`: nodes that have some, but not all, resources allocated
 - `alloc`: nodes that are fully allocated
 - `resv`: nodes that are reserved and only available to people in their reservation
-- `drained`: nodes that are unavailable for use per system administrator request, usually for maintenance purposes. It is shown as `drain*` due to the default 5-column limit.
-- `drng`: nodes that are currently allocated a job, but will not be allocated additional jobs. The node state will be changed to state drained when the last job on it completes. 
-- `down`: nodes that are unavailable for use. 
+- `drained`: nodes that are unavailable for use per system administrator request, usually for maintenance purposes, shown as `drain*` due to the default 5-column limit
+- `drng`: nodes that are currently allocated a job, but will not be allocated additional jobs; node state will be changed to state `drained` when the last job on it completes
+- `down`: nodes that are unavailable for use
 - `plnd`: nodes that are planned by the backfill scheduler for a higher priority job
 
 You can also use `sinfo` to see what resources each node has. For example, to see what node types are in the `rtx-devel` and `b200-devel` partitions, run the command:
 
 ```
-sinfo -p rtx-devel,b200-devel -O Partition,Nodes,CPUs,Memory,Gres -e
+sinfo -O Partition,Nodes,CPUs,Memory,Gres -e
 ```
 
 In the output you'll see a summary of how many nodes of each configuration is in the partition. You can include multiple partitions by providing a comma separated list to the `-p` flag. The output shows the partition, number of nodes, number of CPUs, amount of Memory (in MB), and any GPUs available on the node:
 
-<!-- TODO: Replace with AICR numbers -->
+```
+
+PARTITION       NODES       CPUS        MEMORY          GRES                
+cpu             5           128         1159937         (null)              
+rtx-batch       17          128         2321503         gpu:rtx6000:8       
+b200-batch      28          128         2321503         gpu:b200:8          
+rtx-devel       2           128         2321503         gpu:rtx6000:8       
+b200-devel      3           128         2321503         gpu:b200:8  
+```
 
 ## Running Jobs
 
@@ -84,10 +94,12 @@ When you start any type of job you specify what resources you need for your job,
 The basic command for requesting an interactive job on the `rtx-devel` partition is:
 
 ```batch
-salloc --partition=rtx-devel --gpus=1 --cpus-per-task=4 --mem=16G --time=01:00:00 --account=ACCOUNT_NAME
+salloc --partition=rtx-devel --gpus=1 --cpus-per-task=4 --mem=16G --time=01:00:00 --qos=interactive
 ```
 
-The `--partition=rtx-devel` is a flag that is passed to the scheduler, `--partition` specifies the partition. This command will allocate 4 cores, one GPU, and 16GB of RAM on a node in the `rtx-devel` partition for one hour. Since this is the `rtx-devel` you will get an RTX Pro 6000 GPU.
+<!-- TODO: Check that this qos works -->
+
+The `--partition=rtx-devel` is a flag that is passed to the scheduler, `--partition` specifies the partition. This command will allocate 4 cores (`--cpus-per-task`), one GPU (`--gpus`), and 16GB of RAM (`--mem`) on a node in the `rtx-devel` partition for one hour. The `--qos` flag specifies that this is an interactive job. Since this is the `rtx-devel` you will get an RTX Pro 6000 GPU.
 
 We set aside a certain number of nodes specifically for interactive jobs in each of the "devel" partitions.
 
@@ -96,19 +108,17 @@ For example:
 <!-- TODO: Replace with AICR example -->
 
 ```bash
-[user01@orcd-login001 ~]$ salloc -p rtx-devel -G 1
+[user01@login0001 ~]$ salloc --partition=rtx-devel --gpus=1 --cpus-per-task=4 --mem=16G --time=01:00:00 --qos=interactive
 salloc: Pending job allocation 60159437
 salloc: job 60159437 queued and waiting for resources
 salloc: job 60159437 has been allocated resources
 salloc: Granted job allocation 60159437
 salloc: Waiting for resource configuration
-salloc: Nodes node1806 are ready for job
-[user01@node1806 ~]$ 
+salloc: Nodes a0001 are ready for job
+[user01@a0001 ~]$ 
 ```
 
-Notice how the command prompt changes from `[user01@orcd-login001 ~]$` to `[user01@node1806 ~]$`. This indicates that `user01` has started an interactive job on `node1806` and any commands issued will run on this node.
-
-<!-- TODO: Replace with AICR hostnames -->
+Notice how the command prompt changes from `[user01@login0001 ~]$` to `[user01@a0001 ~]$`. This indicates that `user01` has started an interactive job on `a0001` and any commands issued will run on this node.
 
 ### Submitting a Batch Job
 
@@ -122,35 +132,30 @@ When you run this command the scheduler will look for the resources requested in
 
 Here is an example job script that uses Python to train a model:
 
-<!-- TODO: Verify Batch Job fields (is account required?) -->
-
 ```bash
 #!/bin/bash
 #SBATCH --job-name=my_analysis       # name for identification
 #SBATCH --partition=rtx-batch        # which partition
-#SBATCH --nodes=1                    # number of nodes
-#SBATCH --ntasks=1                   # number of tasks (processes)
 #SBATCH --cpus-per-task=4            # CPU cores per task
 #SBATCH --gpus=1                     # number of GPUs
 #SBATCH --mem=16G                    # memory
 #SBATCH --time=04:00:00              # max wall time (HH:MM:SS)
-#SBATCH --account=ACCOUNT_NAME       # institution account (required)
 #SBATCH --output=%x-%j.out           # stdout file
 
-module load minforge
+module load minforge3
 module load cuda
 
 python train.py
 ```
 
-!!! tip
-    Always specify `--account`. Valid accounts: `bu`, `hu`, `mit`, `neu`, `umass`, `uml`, `umb`, `umassd`, `umassmed`, `yale`, `ma`, `aihub`.
+!!! tip "AICR Slurm Accounts"
+    Slurm accounts are a way to associate a user's usage to a project. Everyone has a default account associated with their primary project. If you are part of multiple projects you can switch the account by using the `--account` flag.
 
-This script requests the same resources as the [interactive job above](#interactive-jobs): 1 cpu core on the `rtx-batch` partition. The `#SBATCH -p rtx-batch` may look like a comment but it is not, it is a directive to the scheduler to run with the specified flags. Note that this is the same flag used in the [interactive job example above](#interactive-jobs). It then sets up the job environment to use python with the `miniforge` and `cuda` modules, and then runs a python script. In general, the same steps and commands you would use to run your job in an interactive job you can put in your job script.
+This script requests the same resources as the [interactive job above](#interactive-jobs): 4 cpu core on the `rtx-batch` partition. The `#SBATCH --partition rtx-batch` may look like a comment but it is not, it is a directive to the scheduler to run with the specified flags. Note that this is the same flag used in the [interactive job example above](#interactive-jobs). It then sets up the job environment to use python with the `miniforge3` and `cuda` modules, and then runs a python script. In general, the same steps and commands you would use to run your job in an interactive job you can put in your job script.
 
 You can think of job scripts as having three sections:
 
-1. Scheduler/Job flags: This is where you request your resources using Slurm flags.
+1. Scheduler/Job flags: This is where you request your resources using Slurm flags. See a list of flags below in [Common Job Flags](#common-job-flags).
 2. Set up your environment: Load any modules you need, set environment variables, etc. It is better to set this in your job scripts to ensure consistent environments across jobs. We don't recommend putting these commands in your `.bashrc` or running them at the command line before you launch your job.
 3. Run your code or application as you would from the command line.
 
@@ -174,7 +179,7 @@ Some of the most common job flags are listed below. Some job flags have a single
 |-----------|--|-----------|---------|
 | [`--job-name`](https://slurm.schedmd.com/sbatch.html#OPT_job-name) | `-J` |Job name | `--job-name=training` |
 | [`--partition`](https://slurm.schedmd.com/sbatch.html#OPT_partition) | `-p` | Partition | `--partition=b200-batch` |
-| [`--account`](https://slurm.schedmd.com/sbatch.html#OPT_account) | `-A` | Institution account | `--account=mit` |
+| [`--account`](https://slurm.schedmd.com/sbatch.html#OPT_account) | `-A` | Project account | `--account=proj1_mit` |
 | [`--nodes`](https://slurm.schedmd.com/sbatch.html#OPT_nodes) | `-N` | Node count | `--nodes=2` |
 | [`--ntasks`](https://slurm.schedmd.com/sbatch.html#OPT_ntasks) | `-n` | Total tasks | `--ntasks=8` |
 | [`--ntasks-per-node`](https://slurm.schedmd.com/sbatch.html#OPT_ntasks-per-node) | NA | Tasks per node | `--ntasks-per-node=4` |
@@ -193,6 +198,24 @@ Some of the most common job flags are listed below. Some job flags have a single
 ## Fairshare and Priority
 
 AICR allocates resources fairly using a three-level hierarchy: **Institution → Project → User**. All institutions have equal shares. Your priority depends on recent usage relative to your institution's and project's allocation. Specify `--account` correctly and Slurm handles the rest.
+
+### Slurm Accounts
+
+Slurm accounts are a way to associate a user's usage to a project. Everyone on AICR has a default account associated with their primary project. If you are part of multiple projects you may have multiple Slurm accounts.
+
+You can see your default account with the command:
+
+```
+sacctmgr show user $USER -p
+```
+
+To see all of the Slurm accounts that you have access to run on, run:
+
+```
+sacctmgr show user $USER withassoc format=user,account -p
+```
+
+When you run a job think about what project that job is for, and specify the account for that project. This ensures your usage is accounted for in the correct project if you are on multiple projects.
 
 ## Slurm Environment Variables
 
