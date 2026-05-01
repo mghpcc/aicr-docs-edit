@@ -205,7 +205,7 @@ session to run your code in by executing the command:
 
 ``` bash
 # Requesting four cores and one RTX-6000 GPU for an interactive job for 1 hour
-salloc -t 01:00:00 -p rtx-devel -c 4 -G 1
+salloc -t 01:00:00 -p rtx-devel -c 4 -G 1 --qos=interactive
 ```
 
 <!-- TODO: Check salloc command -->
@@ -215,7 +215,7 @@ a test-run of your code. This command will allocate four cores and one RTX-6000 
 job. If your test code needs additional cores or uses a lot of
 memory, you should request additional resources as needed.
 
-We provide the basics of running jobs on the [Running Jobs](basic-slurm.md) page. For more information you can consult the documentation at your home institution.
+We provide the basics of running jobs on the [Running Jobs](running-jobs/slurm-basics.md) page. For more information you can consult the documentation at your home institution.
 
 ## Getting Help
 
