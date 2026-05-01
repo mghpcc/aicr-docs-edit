@@ -104,12 +104,13 @@ $ ssh NODE_NAME nvidia-smi           # check GPU usage (requires active job on t
 
 !!! note
     You can only SSH to compute nodes where you have an active Slurm job.
-
+    
+<!-- TODO: add Jobstats when it is is deployed and document usage
 ## Jobstats
 
 [Jobstats](https://princetonuniversity.github.io/jobstats/) is available for reviewing job performance — CPU, memory, and GPU utilization for completed and in-progress jobs. This is useful for identifying underutilized resources and right-sizing future requests.
 
-<!-- TODO: verify Jobstats is deployed and document usage -->
+ -->
 
 ## See Also
 

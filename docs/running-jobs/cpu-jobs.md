@@ -10,7 +10,7 @@ tags:
 
 The `cpu` partition provides high-memory nodes for data analysis, preprocessing, and workflow orchestration. These nodes do not have GPUs — use them for work that benefits from many CPU cores and large memory rather than GPU acceleration.
 
-!!! tip
+!!! tip "CPU Jobs on AICR"
     AICR is not meant for CPU workloads. A small CPU-only partition is provided as a convenience for small data analysis tasks related to your GPU jobs. Heavy CPU workloads should be done on your home institution's cluster.
 
 ## When to Use the CPU Partition
@@ -44,10 +44,9 @@ The following is an example job script for a CPU job with 16 cores and 32GB of R
 #SBATCH --cpus-per-task=16
 #SBATCH --mem=32G
 #SBATCH --time=04:00:00
-#SBATCH --account=ACCOUNT_NAME
 #SBATCH --output=%x-%j.out
 
-module load miniforge
+module load miniforge3
 
 python analyze_data.py
 ```

@@ -85,8 +85,6 @@ module load cuda
 torchrun --nproc_per_node=4 train.py
 ```
 
-<!-- TODO: Should this be torchrun?? Check that this works.-->
-
 <!-- TODO: Add when pages exist: For multi-node GPU jobs (distributed training across nodes), see [Distributed Training](../ai-tools/distributed-training.md) and [Multi-GPU Computing](../gpu/multi-gpu.md). -->
 
 
