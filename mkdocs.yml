@@ -7,8 +7,8 @@ nav:
   - Getting Started: getting-started.md
   - Logging In: logging-in.md
   - Files and Filesystem:
-    - Overview: filesystems-file-transfer/filesystem-overview.md
-    - Transferring data: filesystems-file-transfer/transferring-data.md
+    - Overview: files/overview.md
+    - Transferring data: files/transferring-data.md
   - Software: software.md
   - Running Jobs:
     - Slurm Basics: running-jobs/slurm-basics.md
@@ -31,8 +31,27 @@ theme:
   features:
     - content.code.copy
     - content.tabs.link
-#  palette:
-#    primary: blue grey
+    - search.suggest
+    - navigation.top
+    - navigation.path
+    - navigation.expand
+  palette:
+    - media: "(prefers-color-scheme)"
+      toggle:
+        icon: material/brightness-auto
+        name: Switch to light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: blue grey
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: blue grey
+      toggle:
+        icon: material/brightness-4
+        name: Switch to system preference
 plugins:
   - search
   - tags:
@@ -46,7 +65,11 @@ markdown_extensions:
       line_spans: __span
       pygments_lang_class: true
   - pymdownx.inlinehilite
-  - pymdownx.superfences
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
   - pymdownx.tabbed:
       alternate_style: true 
   - admonition
@@ -54,5 +77,9 @@ markdown_extensions:
   - toc:
       permalink: True
   - attr_list
-  - admonition
-copyright: <a href="https://accessibility.mit.edu/">Accessibility</a>
+  - def_list
+  - tables
+  - md_in_html
+
+extra_css:
+  - stylesheets/extra.css
