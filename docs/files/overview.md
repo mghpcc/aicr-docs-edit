@@ -17,4 +17,4 @@ See the table below for a description of each storage space.
 | ----------- | ----------- |----------- |----------- |----------- |
 | Home Directory | `/home/<username>` | 100 GB | 7 Day Snapshots | Use for important files and software |
 | Scratch | `/scratch/<username>/` | 10 TB | **No Snapshots** | Scratch space for temporary files |
-| Work | `/scratch/<username>/` | Varies | 7 Day Snapshots | Shared project space |
+| Work | `/work/<institution>/<groupname>/` | Varies | 7 Day Snapshots | Shared project space |
