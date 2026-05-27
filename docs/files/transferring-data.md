@@ -49,7 +49,7 @@ The AICR collection on Globus is called [AICR Collection](REPLACE URL HERE). Bel
 
 To transfer data:
 
-1. **Log in:** Log into [Globus](https://www.globus.org/) with your institution's credentials. These should be the same that you use to log into [ood.aicr.ai](ood.aicr.ai).
+1. **Log in:** Log into [Globus](https://www.globus.org/) with your institution's credentials. These should be the same that you use to log into [ood.aicr.ai](https://ood.aicr.ai).
 2. **Select your source and destination collections:** In the "File Manager" tab in each of the two "Collection" boxes search for the collections for the systems you want to transfer data between ([AICR Collection](REPLACE URL) for ACIR). To transfer data to or from your own computer you will need to set up Globus Connect Personal. Follow the instructions on the page for your system listed [here](https://docs.globus.org/globus-connect-personal/).
 3. **Navigate to your source and destination directories:** On the source side navigate to the source directory and select the files and/or directories you'd like to transfer. On the destination side navigate to the location where you'd like to copy your files
 4. **Select any additional settings:** Click on "Transfer and Timer Options" for additional settings, such as syncing new or changed files and scheduling recurring transfers.
