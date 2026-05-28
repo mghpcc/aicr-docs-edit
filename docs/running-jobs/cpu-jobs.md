@@ -25,7 +25,7 @@ For GPU-accelerated work (training, inference, anything using CUDA), use the `rt
 
 | Property | Value |
 |----------|-------|
-| Nodes | Intel w-series (5 nodes) |
+| Nodes | AMD EPYC 9745 (5 nodes) |
 | Cores per node | 128 |
 | Memory per node | 1 TB |
 | GPUs | None |
