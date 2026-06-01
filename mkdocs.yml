@@ -5,7 +5,9 @@ nav:
   - AICR System: system-description.md
   - Requesting Access: request-access.md #include prerequisites
   - Getting Started: getting-started.md
-  - Logging In: logging-in.md
+  - Logging In:
+    - OnDemand: connecting/ondemand.md
+    - SSH: logging-in.md
   - Files and Filesystem:
     - Overview: files/overview.md
     - Transferring data: files/transferring-data.md
@@ -34,7 +36,6 @@ theme:
     - search.suggest
     - navigation.top
     - navigation.path
-    - navigation.expand
   palette:
     - media: "(prefers-color-scheme)"
       toggle:
