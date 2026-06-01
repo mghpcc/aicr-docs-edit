@@ -6,7 +6,7 @@ tags:
 
 # SSH
 
-SSH (Secure Shell) is the standard way to access AICR from a terminal. If you prefer a browser-based interface with no setup, see [OnDemand](ondemand.md) instead.
+SSH (Secure Shell) is the standard way to access AICR from a terminal. If you prefer a browser-based interface with no setup, see [OnDemand](connecting/ondemand.md) instead.
 
 AICR uses **SSH certificate authentication**. When your account is created, you receive a short-lived SSH certificate signed by AICR's Certificate Authority (CA). There is no separate AICR password. Your certificate is your credential.
 
@@ -34,7 +34,7 @@ When your AICR account is created, three four files will be generated for you:
 - `id_ed25519_aicr-cert.pub`: your CA-signed certificate
 - `.passphrase`: initial passphrase for your private key
 
-Retrieve these files from [https://ood.aicr.ai](https://ood.aicr.ai) (see the [OnDemand page](ondemand.md) page for more information on how to log in). Once you've logged in, go to the File Browser (Files -> Home Directory). Download the `aicr_keys` folder by clicking on the `...` icon and selecting "Download", or check the box next to the folder icon and click the "Download" button at the top.
+Retrieve these files from [https://ood.aicr.ai](https://ood.aicr.ai) (see the [OnDemand page](connecting/ondemand.md) page for more information on how to log in). Once you've logged in, go to the File Browser (Files -> Home Directory). Download the `aicr_keys` folder by clicking on the `...` icon and selecting "Download", or check the box next to the folder icon and click the "Download" button at the top.
 
 Unzip the downloaded folder and place each these files in your `~/.ssh/` directory and set the correct permissions. 
 
