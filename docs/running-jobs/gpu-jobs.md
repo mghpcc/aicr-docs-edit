@@ -57,7 +57,7 @@ The following script requests one GPU, 8 CPUs, and 32GB of RAM for 8 hours in th
 #SBATCH --account=ACCOUNT_NAME
 #SBATCH --output=%x-%j.out
 
-module load miniforge
+module load miniforge3
 module load cuda
 
 python train.py
@@ -79,7 +79,7 @@ The following script request multiple GPUs (4) on one node in the `b200-batch` p
 #SBATCH --account=ACCOUNT_NAME
 #SBATCH --output=%x-%j.out
 
-module load miniforge
+module load miniforge3
 module load cuda
 
 torchrun --nproc_per_node=4 train.py

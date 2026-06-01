@@ -6,7 +6,7 @@ tags:
 
 # SSH
 
-SSH (Secure Shell) is the standard way to access AICR from a terminal. If you prefer a browser-based interface with no setup, see [OnDemand](connecting/ondemand.md) instead.
+SSH (Secure Shell) is the standard way to access AICR from a terminal. If you prefer a browser-based interface with no setup, see [OnDemand](ondemand.md) instead.
 
 AICR uses **SSH certificate authentication**. When your account is created, you receive a short-lived SSH certificate signed by AICR's Certificate Authority (CA). There is no separate AICR password. Your certificate is your credential.
 
@@ -27,16 +27,16 @@ Replace `USERNAME` with your AICR username. This follows the format `institution
 
 ## Setting Up Your SSH Keys and Certificate
 
-When your AICR account is created, three four files will be generated for you:
+When your AICR account is created, four files will be generated for you:
 
 - `id_ed25519_aicr`: your private key (passphrase-protected)
 - `id_ed25519_aicr.pub`: your public key
 - `id_ed25519_aicr-cert.pub`: your CA-signed certificate
 - `.passphrase`: initial passphrase for your private key
 
-Retrieve these files from [https://ood.aicr.ai](https://ood.aicr.ai) (see the [OnDemand page](connecting/ondemand.md) page for more information on how to log in). Once you've logged in, go to the File Browser (Files -> Home Directory). Download the `aicr_keys` folder by clicking on the `...` icon and selecting "Download", or check the box next to the folder icon and click the "Download" button at the top.
+Retrieve these files from [https://ood.aicr.ai](https://ood.aicr.ai) (see the [OnDemand page](ondemand.md) for more information on how to log in). Once you've logged in, go to the File Browser (Files -> Home Directory). Download the `aicr_keys` folder by clicking on the `...` icon and selecting "Download", or check the box next to the folder icon and click the "Download" button at the top.
 
-Unzip the downloaded folder and place each these files in your `~/.ssh/` directory and set the correct permissions. 
+Unzip the downloaded folder and place each of these files in your `~/.ssh/` directory and set the correct permissions. 
 
 === "macOS / Linux"
 
@@ -126,7 +126,7 @@ $ ssh NODE_NAME             # connect to the node (only works with an active job
 
 | Problem | Solution |
 |---------|----------|
-| `Permission denied (publickey)` | Your certificate may be expired or missing. Re-downlod it through the OnDemand portal, or contact your institution's [RC team](../getting-help.md). Check file permissions: private key should be `600` (see [above](#setting-up-your-ssh-keys-and-certificate)). |
+| `Permission denied (publickey)` | Your certificate may be expired or missing. Re-download it through the OnDemand portal, or contact your institution's [RC team](../getting-help.md). Check file permissions: private key should be `600` (see [above](#setting-up-your-ssh-keys-and-certificate)). |
 | `Connection timed out` | Check your network connection. AICR login nodes are publicly accessible — no VPN is required. If the problem persists, check your local firewall or try from a different network. |
 | `Host key verification failed` | The host key has changed. Remove the old entry: `ssh-keygen -R login.aicr.ai` then reconnect. |
 | Connection drops frequently | Add `ServerAliveInterval 60` to your SSH config for AICR. |

@@ -6,7 +6,7 @@ We recommend using [OnDemand](#ondemand) for every-day file transfer and [Globus
 
 ## OnDemand
 
-AICR has an [Open OnDemand Portal](REPLACE URL HERE).
+AICR has an [Open OnDemand Portal](https://ood.aicr.ai).
 
 With the AICR OnDemand portal you can do the following using the File Browser:
 
@@ -15,8 +15,6 @@ With the AICR OnDemand portal you can do the following using the File Browser:
 - View and edit files
 
 Once you are logged into OnDemand, you can use the File Browser by selecting Files -> Home Directory in the menu bar at the top left of the page.
-
-<!-- TODO: Verify File Browser Paths -->
 
 To upload and download you can drag and drop files and directories between your File Browser window and your desktop Finder/Explorer windows. You can also use the "Upload" and "Download" buttons. Select multiple files by holding the Control (or Command) key and clicking on the files you'd like to select. Those files can then be downloaded with the "Download" button.
 
@@ -36,9 +34,13 @@ Some advantages of using Globus are:
 - You don't need to stay logged into Globus through the entire transfer
 - If your transfer is interrupted it will continue automatically where it left off once the connection is re-established
 
-The AICR collection on Globus is called [AICR Collection](REPLACE URL HERE). Below is a table listing the collections for a few institution's home cluster.
+The AICR collection on Globus is called AICR Collection.
+
+!!! tip
+    The AICR Globus collection is not yet set up. When it is set up we will update this page.
 
  <!-- TODO: Replace Globus URL and add table
+ Below is a table listing the collections for a few institution's home cluster.
 
 | Institution  | Cluster | Globus Collection | 
 | ----------- | ----------- |----------- |
@@ -50,7 +52,7 @@ The AICR collection on Globus is called [AICR Collection](REPLACE URL HERE). Bel
 To transfer data:
 
 1. **Log in:** Log into [Globus](https://www.globus.org/) with your institution's credentials. These should be the same that you use to log into [ood.aicr.ai](https://ood.aicr.ai).
-2. **Select your source and destination collections:** In the "File Manager" tab in each of the two "Collection" boxes search for the collections for the systems you want to transfer data between ([AICR Collection](REPLACE URL) for ACIR). To transfer data to or from your own computer you will need to set up Globus Connect Personal. Follow the instructions on the page for your system listed [here](https://docs.globus.org/globus-connect-personal/).
+2. **Select your source and destination collections:** In the "File Manager" tab in each of the two "Collection" boxes search for the collections for the systems you want to transfer data between (AICR Collection for AICR). To transfer data to or from your own computer you will need to set up Globus Connect Personal. Follow the instructions on the page for your system listed [here](https://docs.globus.org/globus-connect-personal/).
 3. **Navigate to your source and destination directories:** On the source side navigate to the source directory and select the files and/or directories you'd like to transfer. On the destination side navigate to the location where you'd like to copy your files
 4. **Select any additional settings:** Click on "Transfer and Timer Options" for additional settings, such as syncing new or changed files and scheduling recurring transfers.
 5. **Initiate the transfer:** Once you have selected the files and options you want, press the "Start" button on the source column.
@@ -76,10 +78,10 @@ Both `scp` and `rsync` work similar to `cp`, in that you specify a source (where
 cp /path/to/source /path/to/destination
 
 # using scp to copy files from the local system to AICR
-scp /path/to/source USERNAME@[dtn-hostname]:/path/to/destination
+scp /path/to/source USERNAME@login.aicr.ai:/path/to/destination
 
 # using scp to copy files from AICR to the local system
-scp USERNAME@[dtn-hostname]:/path/to/source /path/to/destination
+scp USERNAME@login.aicr.ai:/path/to/source /path/to/destination
 ```
 
 Unless you have your paths memorized, the easiest way to do this is to have two terminals open. The first terminal is logged into AICR or other remote system, the second is on your local computer. In each navigate to the respective source and destination directories. In the AICR tab you can run the `pwd` command to print out the path to your current location and copy the output to use in the `scp` or `rsync` command.
@@ -93,25 +95,25 @@ To transfer a file from your local computer to AICR you would use the command:
 <!-- TODO: Replace AICR DTN hostname -->
 
 ``` bash
-scp <local-file-name> USERNAME@[dtn-hostname]:<path-to-aicr-dir>
+scp <local-file-name> USERNAME@login.aicr.ai:<path-to-aicr-dir>
 ```
 
 For example, let's say you have the local file `myscript.py` and you want to transfer it to the directory `mycode` in your home directory. The command would be:
 
 ``` bash
-scp myscript.py USERNAME@[dtn-hostname]:/home/USERNAME/mycode/
+scp myscript.py USERNAME@login.aicr.ai:/home/USERNAME/mycode/
 ```
 
 To transfer the other direction (from AICR to your local computer) switch the order:
 
 ``` bash
-scp USERNAME@[dtn-hostname]:<path-to-aicr-file> <path-to-local-dir>
+scp USERNAME@login.aicr.ai:<path-to-aicr-file> <path-to-local-dir>
 ```
 
 If you were to have the file `results.csv` that you want to copy from the `output` directory in your remote home directory to the current directory on your computer the command would be:
 
 ``` bash
-scp USERNAME@[dtn-hostname]:/home/USERNAME/output/results.csv .
+scp USERNAME@login.aicr.ai:/home/USERNAME/output/results.csv .
 ```
 
 Note the `.` in the command above means the current directory.
@@ -119,7 +121,7 @@ Note the `.` in the command above means the current directory.
 Similar to the `cp` command, if you want to transfer an entire directory and all of its subdirectories, use the `-r` (recursive) flag for either direction:
 
 ``` bash
-scp -r <local-directory-name> USERNAME@[dtn-hostname]:<path-to-aicr-dir>
+scp -r <local-directory-name> USERNAME@login.aicr.ai:<path-to-aicr-dir>
 ```
 
 <!-- TODO: Check 2FA behavior with AICR DTN -->
@@ -158,7 +160,7 @@ If you need to move files between AICR and other system first ssh to either and 
 
 ```bash title="Transferring files from MIT Engaging to AICR"
 ssh USERNAME@orcd-login.mit.edu
-scp <path-to-Engaging-file> USERNAME@[dtn-hostname]:<path-to-engaging-directory>
+scp <path-to-Engaging-file> USERNAME@login.aicr.ai:<path-to-AICR-directory>
 ```
 You can also `ssh` into AICR and initiate the transfer from there using a similar command.
 
@@ -174,4 +176,4 @@ Some of the most common options are:
 
 <!-- TODO: Replace DTN hostname -->
 
-To use these you will need to use the hostname of the AICR data transfer nodes: `[dtn-hostname]`.
+To use these you will need to use the hostname of the AICR data transfer nodes: `login.aicr.ai`.

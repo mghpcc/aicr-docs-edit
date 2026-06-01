@@ -12,12 +12,12 @@ convenient reference to get started.
 
 ## Getting an Account
 
-AICR is currently available to initial beta-test users. Each institution may have its own process for getting an account. When it is available we will include links to that information here.
+AICR is currently available to initial alpha and beta-test users. Each institution may have its own process for getting an account. When it is available we will include links to that information here.
 
 ## Logging In
 
 The first thing you should do when you get a new account is verify that
-you can log in. You can log in using either the [AICR OnDemand portal](connecting/ondemand.md) or through [SSH in the terminal](logging-in.md).
+you can log in. You can log in using either the [AICR OnDemand portal](connecting/ondemand.md) or through [SSH in the terminal](connecting/ssh.md).
 
 ### OnDemand Portal
 
@@ -25,7 +25,7 @@ You can log into OnDemand Web Portal using your institutional credentials. Acces
 
 ### Terminal with SSH
 
-Log into AICR with the following command in a terminal window. See the [SSH Login page](logging-in.md) for how to set up SSH access. Once you have set up your SSH keys as instructed, you can log in with the following command:
+Log into AICR with the following command in a terminal window. See the [SSH Login page](connecting/ssh.md) for how to set up SSH access. Once you have set up your SSH keys as instructed, you can log in with the following command:
 
 ```bash
 ssh USERNAME@login.aicr.ai
@@ -93,7 +93,7 @@ the same as the file `myscript.sh`. When you first log in, you are in your
 **home directory**. Your home directory is where you can put all the
 code and data you need to run your job. Your home directory is not
 accessible to other users, so if you need a space to share files with other
-users, use a **project** directgory.
+users, use a **project** directory.
 
 The path to your home directory on AICR is `/home/<USERNAME>`, where `<USERNAME>` is your username. The character `~` is also shorthand for your home directory in any Linux commands.
 
@@ -159,7 +159,7 @@ Finally, click on the box below for a list of Linux Commands. If you are new to 
 One of the first tasks is to get your code, data, and any other files
 you need into your home directory on the system. Review the [Transferring Data](files/transferring-data.md) page for a full description of how to move data on and off AICR.
 
-If your code is in github you can use git commands on the system to clone your repository
+If your code is in GitHub you can use git commands on the system to clone your repository
 to your home directory. The primary method we recommend for copying your files to and from AICR is through [Globus](https://www.globus.org/). You can also transfer your files from your computer using the OnDemand File Browser or by using the commands `scp` or `rsync`.
 
 You can use `scp` or `rsync` from the command line on your local computer. Both commands work similarly to the `cp` command, following the pattern `<command> <source> <destination>`, the only difference being that you will need to include the hostname of the system you are transferring to or from. For this reason you *must* run this command from the terminal on your computer *before you've logged in*.
@@ -195,12 +195,12 @@ moderate personal laptop or desktop you can request an interactive
 session to run your code in by executing the command:
 
 ``` bash
-# Requesting four cores and one RTX-6000 GPU for an interactive job for 1 hour
+# Requesting four cores and one RTX Pro 6000 GPU for an interactive job for 1 hour
 salloc -t 01:00:00 -p rtx-devel -c 4 -G 1
 ```
 
 After you run this command you will be on a compute node and you can do
-a test-run of your code. This command will allocate four cores and one RTX-6000 GPUs to your
+a test-run of your code. This command will allocate four cores and one RTX Pro 6000 GPU to your
 job. If your test code needs additional cores or uses a lot of
 memory, you should request additional resources as needed.
 

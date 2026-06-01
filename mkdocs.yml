@@ -7,7 +7,7 @@ nav:
   - Getting Started: getting-started.md
   - Logging In:
     - OnDemand: connecting/ondemand.md
-    - SSH: logging-in.md
+    - SSH: connecting/ssh.md
   - Files and Filesystem:
     - Overview: files/overview.md
     - Transferring data: files/transferring-data.md
