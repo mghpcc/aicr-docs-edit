@@ -17,24 +17,21 @@ AICR is currently available to initial beta-test users. Each institution may hav
 ## Logging In
 
 The first thing you should do when you get a new account is verify that
-you can log in. You can log in using either the AICR OnDemand portal or through SSH in the terminal. See the [Logging In](logging-in.md) page for more details.
+you can log in. You can log in using either the [AICR OnDemand portal](connecting/ondemand.md) or through [SSH in the terminal](logging-in.md).
 
 ### OnDemand Portal
 
-You can log into OnDemand Web Portal using your institutional credentials. Once the OnDemand Portal is available we will put the URL here.
-<!-- TODO: Add OnDemand URL -->
+You can log into OnDemand Web Portal using your institutional credentials. Access AICR OnDemand through: [https://ood.aicr.ai](https://ood.aicr.ai).
 
 ### Terminal with SSH
 
-Log into AICR with the following command in a terminal window. Replace `USERNAME` below with your AICR username.
+Log into AICR with the following command in a terminal window. See the [SSH Login page](logging-in.md) for how to set up SSH access. Once you have set up your SSH keys as instructed, you can log in with the following command:
 
 ```bash
-ssh USERNAME@[aicr-login-hostname]
+ssh USERNAME@login.aicr.ai
 ```
 
-<!-- TODO: Update with Login node hostname -->
-
-Your AICR username is similar to but not the same as your institutional username. It would have been given to you when your account was created. If you are prompted for a password enter your institutional password.
+Replace `USERNAME` above with your AICR username. Your AICR username is similar to but not the same as your institutional username. It was given to you when your account was created.
 
 ## Shared HPC Clusters
 
@@ -160,7 +157,7 @@ Finally, click on the box below for a list of Linux Commands. If you are new to 
 ## Transferring Files
 
 One of the first tasks is to get your code, data, and any other files
-you need into your home directory on the system. Review the [Transferring Data](transferring-data.md) page for a full description of how to move data on and off AICR.
+you need into your home directory on the system. Review the [Transferring Data](files/transferring-data.md) page for a full description of how to move data on and off AICR.
 
 If your code is in github you can use git commands on the system to clone your repository
 to your home directory. The primary method we recommend for copying your files to and from AICR is through [Globus](https://www.globus.org/). You can also transfer your files from your computer using the OnDemand File Browser or by using the commands `scp` or `rsync`.
@@ -170,26 +167,20 @@ You can use `scp` or `rsync` from the command line on your local computer. Both 
 To transfer a file from your computer to AICR:
 
 ``` bash
-scp <local-file-name> USERNAME@[aicr-login-hostname]:<path-to-aicr-dir>
+scp <local-file-name> USERNAME@login.aicr.ai:<path-to-aicr-dir>
 ```
-
-<!-- TODO: Update with Login node hostname -->
 
 To transfer a file from AICR to your computer:
 
 ``` bash
-scp USERNAME@[aicr-login-hostname]:<path-to-aicr-dir>/<file-name> <path-to-local-dest>
+scp USERNAME@login.aicr.ai:<path-to-aicr-dir>/<file-name> <path-to-local-dest>
 ```
-
-<!-- TODO: Update with Login node hostname -->
 
 Similar to `cp`, use the `-r` flag to copy over an entire directory and its contents. 
 
 ``` bash
-scp -r <local-dir-name> USERNAME@[aicr-login-hostname]:<path-to-aicr-dir>
+scp -r <local-dir-name> USERNAME@login.aicr.ai:<path-to-aicr-dir>
 ```
-
-<!-- TODO: Update with Login node hostname -->
 
 The `rsync` command can be used similarly and has some additional flags you can use. It also can be used to transfer only new or modified files to the destination, which makes it easy to keep a directory in "sync".
 
@@ -205,10 +196,8 @@ session to run your code in by executing the command:
 
 ``` bash
 # Requesting four cores and one RTX-6000 GPU for an interactive job for 1 hour
-salloc -t 01:00:00 -p rtx-devel -c 4 -G 1 --qos=interactive
+salloc -t 01:00:00 -p rtx-devel -c 4 -G 1
 ```
-
-<!-- TODO: Check salloc command -->
 
 After you run this command you will be on a compute node and you can do
 a test-run of your code. This command will allocate four cores and one RTX-6000 GPUs to your
