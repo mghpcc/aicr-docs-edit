@@ -87,7 +87,10 @@ How you run your job depends on the type of job you would like to run. There are
 
 ### Job Flags
 
-When you start any type of job you specify what resources you need for your job, including cores, memory, GPUs, and other features. You also specify which [partition](#partitions) you would like your job to run on. If you don't specify any of these you will get the default resources: 1 core, a small amount of memory, no GPUs, and it will run on the current default partition. See the page on [Requesting Resources](requesting-resources.md) for the flags to use to request different types of resources.
+When you start any type of job you specify what resources you need for your job, including cores, memory, GPUs, and other features. You also specify which [partition](#partitions) you would like your job to run on. If you don't specify any of these you will get the default resources: 1 core, a small amount of memory, no GPUs, and it will run on the current default partition. See [Common Job Flags](#common-job-flags) below for the flags to use to request different types of resources, as well as the following pages:
+
+- [GPU Jobs](gpu-jobs.md): For specifics on running GPU jobs
+- [CPU Jobs](cpu-jobs.md): For specifics on running CPU jobs
 
 ### Interactive Jobs
 
