@@ -12,7 +12,7 @@ convenient reference to get started.
 
 ## Getting an Account
 
-AICR is currently available to initial beta-test users. Each institution may have its own process for getting an account. When it is available we will include links to that information here.
+AICR is currently available to initial alpha and beta-test users. Each institution may have its own process for getting an account. When it is available we will include links to that information here.
 
 ## Logging In
 
@@ -159,7 +159,7 @@ Finally, click on the box below for a list of Linux Commands. If you are new to 
 One of the first tasks is to get your code, data, and any other files
 you need into your home directory on the system. Review the [Transferring Data](files/transferring-data.md) page for a full description of how to move data on and off AICR.
 
-If your code is in github you can use git commands on the system to clone your repository
+If your code is in GitHub you can use git commands on the system to clone your repository
 to your home directory. The primary method we recommend for copying your files to and from AICR is through [Globus](https://www.globus.org/). You can also transfer your files from your computer using the OnDemand File Browser or by using the commands `scp` or `rsync`.
 
 You can use `scp` or `rsync` from the command line on your local computer. Both commands work similarly to the `cp` command, following the pattern `<command> <source> <destination>`, the only difference being that you will need to include the hostname of the system you are transferring to or from. For this reason you *must* run this command from the terminal on your computer *before you've logged in*.
@@ -195,12 +195,12 @@ moderate personal laptop or desktop you can request an interactive
 session to run your code in by executing the command:
 
 ``` bash
-# Requesting four cores and one RTX-6000 GPU for an interactive job for 1 hour
+# Requesting four cores and one RTX Pro 6000 GPU for an interactive job for 1 hour
 salloc -t 01:00:00 -p rtx-devel -c 4 -G 1
 ```
 
 After you run this command you will be on a compute node and you can do
-a test-run of your code. This command will allocate four cores and one RTX-6000 GPUs to your
+a test-run of your code. This command will allocate four cores and one RTX Pro 6000 GPU to your
 job. If your test code needs additional cores or uses a lot of
 memory, you should request additional resources as needed.
 

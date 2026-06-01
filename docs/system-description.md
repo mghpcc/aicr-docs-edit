@@ -35,7 +35,7 @@ Default memory per CPU: 1 GB. Development partitions have a 4-concurrent-job lim
 | Storage | Path | Quota | Snapshots | Purge |
 |---------|------|-------|-----------|-------|
 | Home | `/home/USERNAME` | 100 GiB | 7-day | None |
-| Scratch | `/scratch/USERNAME` | ~10 TiB | None | Regular |
+| Scratch | `/scratch/USERNAME` | 10 TiB | None | Regular |
 | Work | `/work/INSTITUTION/PROJECT` | Varies | 7-day | None |
 
 !!! warning
@@ -44,9 +44,6 @@ Default memory per CPU: 1 GB. Development partitions have a 4-concurrent-job lim
 ## Interconnect
 
 AICR nodes are connected by InfiniBand NDR400 (400 Gb/s) for high-bandwidth, low-latency communication between GPUs and storage. This enables fast distributed training across multiple GPU nodes and high-throughput access to the VAST storage system via NFS-RDMA.
-
-
-## Links
 
 ## See Also
 

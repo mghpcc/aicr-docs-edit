@@ -145,7 +145,7 @@ Here is an example job script that uses Python to train a model:
 #SBATCH --time=04:00:00              # max wall time (HH:MM:SS)
 #SBATCH --output=%x-%j.out           # stdout file
 
-module load minforge3
+module load miniforge3
 module load cuda
 
 python train.py
