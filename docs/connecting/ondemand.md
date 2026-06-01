@@ -70,7 +70,7 @@ Your session runs as a Slurm job and counts against your fairshare allocation.
 
 ## See Also
 
-- [SSH](../logging-in.md) — terminal access for users who prefer command-line SSH
+- [SSH](ssh.md) — terminal access for users who prefer command-line SSH
 - [Transferring Data](../files/transferring-data.md) — other methods for moving files
 <!-- 
 TODO: remove comment when VSCode instructions are added.

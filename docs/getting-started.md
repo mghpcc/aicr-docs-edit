@@ -17,7 +17,7 @@ AICR is currently available to initial alpha and beta-test users. Each instituti
 ## Logging In
 
 The first thing you should do when you get a new account is verify that
-you can log in. You can log in using either the [AICR OnDemand portal](connecting/ondemand.md) or through [SSH in the terminal](logging-in.md).
+you can log in. You can log in using either the [AICR OnDemand portal](connecting/ondemand.md) or through [SSH in the terminal](connecting/ssh.md).
 
 ### OnDemand Portal
 
@@ -25,7 +25,7 @@ You can log into OnDemand Web Portal using your institutional credentials. Acces
 
 ### Terminal with SSH
 
-Log into AICR with the following command in a terminal window. See the [SSH Login page](logging-in.md) for how to set up SSH access. Once you have set up your SSH keys as instructed, you can log in with the following command:
+Log into AICR with the following command in a terminal window. See the [SSH Login page](connecting/ssh.md) for how to set up SSH access. Once you have set up your SSH keys as instructed, you can log in with the following command:
 
 ```bash
 ssh USERNAME@login.aicr.ai
