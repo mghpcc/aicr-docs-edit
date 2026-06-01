@@ -93,7 +93,7 @@ the same as the file `myscript.sh`. When you first log in, you are in your
 **home directory**. Your home directory is where you can put all the
 code and data you need to run your job. Your home directory is not
 accessible to other users, so if you need a space to share files with other
-users, use a **project** directgory.
+users, use a **project** directory.
 
 The path to your home directory on AICR is `/home/<USERNAME>`, where `<USERNAME>` is your username. The character `~` is also shorthand for your home directory in any Linux commands.
 
