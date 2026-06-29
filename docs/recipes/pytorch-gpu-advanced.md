@@ -7,12 +7,14 @@ This recipe covers advanced topics in using PyTorch on GPUs in the AICR environm
 We have a few example scripts for this tutorial, which you can download and extract to your home directory:
 
 ```bash
-wget <link>
-unzip aicr_pytorch_gpu_examples.zip
+wget https://raw.githubusercontent.com/mghpcc/aicr-docs-edit/main/docs/scripts/pytorch_gpu/examples.zip
+unzip examples.zip
 ```
-<!-- TODO: Add the actual wget command and link -->
 
-Ensure you have a Python enviornment with PyTorch installed with GPU support. You can follow [these instructions](pytorch-gpu.md#installing-pytorch-with-gpu-support) to set up your environment.
+!!! tip
+    This recipe uses the partition `rtx-batch`, which has RTX PRO 6000 GPUs, for example GPU jobs. If you want to use a different partition, you can change the `-p` flag in the job scripts. Please refer to [GPU Jobs](../running-jobs/gpu-jobs.md) for more information on choosing a partition and requesting GPUs.
+
+Ensure you have a Python environment with PyTorch installed with GPU support. You can follow [these instructions](pytorch-gpu.md#installing-pytorch-with-gpu-support) to set up your environment.
 
 ## Fully Sharded Data Parallelism (FSDP)
 
@@ -32,7 +34,7 @@ We will be using the `mnist_gpu.py` script included in the examples. To train th
 #SBATCH -N 1
 #SBATCH -n 1
 #SBATCH --mem=20GB
-#SBATCH -G 1  
+#SBATCH -G 1
 
 module load conda
 source activate my_torch_env
@@ -65,7 +67,7 @@ python FSDP_mnist.py
 
 You can submit this job with `sbatch submit_fsdp_mnist.sh` and monitor it with `squeue --me`.
 
-In this case, we are requesting 2 GPUs and 2 tasks, which will allow us to use FSDP to shard the model across the two GPUs. The model is split into 2 shards, each stored on a different GPU, and the training happens on 2 batches of data simultaneously.
+In this case, we are requesting 2 GPUs and 1 task, which will allow us to use FSDP to shard the model across the two GPUs. The model is split into 2 shards, each stored on a different GPU, and the training happens on 2 batches of data simultaneously.
 
 ## Hybrid Fully Sharded Data Parallel and Tensor Parallel
 
@@ -79,7 +81,7 @@ We will use an example that implements FSDP + TP on LLAMA2 (Large Language Model
 
 First, we will run the example on multiple GPUs on a single node.
 
-In the script `fsdp_tp_example.py`, the TP size is set to 2. The total number of GPUs should be equal to a multiple of the TP size, and then the FSDP size is equal to the number of GPUs divided by the TP size.
+In the script `fsdp_tp_example.py`, the TP size is set to 2. The total number of GPUs should be a multiple of the TP size, and then the FSDP size is equal to the number of GPUs divided by the TP size.
 
 Prepare the following job script to run the example on 4 GPUs:
 
@@ -98,17 +100,17 @@ Prepare the following job script to run the example on 4 GPUs:
 module load conda
 source activate my_torch_env
 
-torchrun --nnodes=1 --nproc_per_node=4 \
-     --rdzv_id=$SLURM_JOB_ID \
-     --rdzv_endpoint="localhost:1234" \
+torchrun --nnodes=1 --nproc-per-node=4 \
+     --rdzv-id=$SLURM_JOB_ID \
+     --rdzv-endpoint="localhost:1234" \
      fsdp_tp_example.py
 ```
 
 Submit this job with `sbatch submit_fsdp_tp.sh` and monitor it with `squeue --me`.
 
-With the flags `-N 1` and `-n 4`, the `torchrun` command will run the program on 4 GPUs within one node. The training process happens on 2 batches of data with FSDP, and the model is trained with TP sharded computation on 2 GPUs for each batch of data.
+With the flags `-N 1` and `-G 4`, the `torchrun` command will run the program on 4 GPUs within one node. The training process happens on 2 batches of data with FSDP, and the model is trained with TP sharded computation on 2 GPUs for each batch of data.
 
-The flags with `rdzv` (rendezvous protocol) are required by `torchrun` to coordinate multiple processes. The flag `--rdzv-id=$SLURM_JOB_ID` sets the rendezvous ID to the Slurm job ID, but it can be any random number. The flag `--rdzv-endpoint="localhost:1234"` is used to specify the host and port. Use `localhost` when there is only one node. The part can be any 4- or 5-digit number larger than 1024.
+The flags with `rdzv` (rendezvous protocol) are required by `torchrun` to coordinate multiple processes. The flag `--rdzv-id=$SLURM_JOB_ID` sets the rendezvous ID to the Slurm job ID, but it can be any random number. The flag `--rdzv-endpoint="localhost:1234"` is used to specify the host and port. Use `localhost` when there is only one node. The port can be any 4- or 5-digit number larger than 1024.
 
 ### Multi-node multi-GPU FSDP + TP
 
@@ -124,7 +126,7 @@ Prepare the following job script to run the example on 2 nodes with 4 GPUs each:
 #SBATCH -N 2
 #SBATCH --ntasks-per-node=1
 #SBATCH --cpus-per-task=4
-#SBATCH --gpus-per-node=4 
+#SBATCH --gpus-per-node=4
 #SBATCH --mem=30GB
 
 module load conda
@@ -149,6 +151,6 @@ You can submit this job with `sbatch submit_fsdp_tp_multinode.sh` and monitor it
 The training process happens on 4 batches of data with FSDP, and the model is trained with TP sharded computation on 2 GPUs for each batch of data.
 
 !!! note
-    The NVIDIA Collective Communications Library (NCCL) is set as the backend in all of the PyTorch programs in this tutorial so that the communication between GPUs within one node benefits from the high bandwidth of NVLinks, and the communication between GPUs across nodes benefits from the bandwidth of the Infiniband network.
+    The NVIDIA Collective Communications Library (NCCL) is set as the backend in all of the PyTorch programs in this tutorial so that the communication between GPUs within one node benefits from the high bandwidth of NVLinks, and the communication between GPUs across nodes benefits from the bandwidth of the InfiniBand network.
 
     The intra-node GPU-GPU communication speed is much faster than inter-node. The communication overhead of TP is much larger than that of FSDP. The topology of GPU communication is set up (in the code `fsdp_tp_example.py`) in a way that TP communication is intra-node and FSDP communication is inter-node, so that the usage of the network bandwidth is optimized.
