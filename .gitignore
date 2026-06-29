@@ -3,3 +3,4 @@ _build
 .DS_Store
 .vscode/*
 venv
+docs/scripts/pytorch_gpu/*.py
