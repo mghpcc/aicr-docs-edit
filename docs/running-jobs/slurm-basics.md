@@ -97,12 +97,12 @@ When you start any type of job you specify what resources you need for your job,
 The basic command for requesting an interactive job on the `rtx-devel` partition is:
 
 ```batch
-salloc --partition=rtx-devel --gpus=1 --cpus-per-task=4 --mem=16G --time=01:00:00 --qos=interactive
+salloc --partition=rtx-devel --gpus=1 --cpus-per-task=4 --mem=16G --time=01:00:00
 ```
 
 <!-- TODO: Check that this qos works -->
 
-The `--partition=rtx-devel` is a flag that is passed to the scheduler, `--partition` specifies the partition. This command will allocate 4 cores (`--cpus-per-task`), one GPU (`--gpus`), and 16GB of RAM (`--mem`) on a node in the `rtx-devel` partition for one hour. The `--qos` flag specifies that this is an interactive job. Since this is the `rtx-devel` you will get an RTX Pro 6000 GPU.
+The `--partition=rtx-devel` is a flag that is passed to the scheduler, `--partition` specifies the partition. This command will allocate 4 cores (`--cpus-per-task`), one GPU (`--gpus`), and 16GB of RAM (`--mem`) on a node in the `rtx-devel` partition for one hour. Since this is the `rtx-devel` you will get an RTX Pro 6000 GPU.
 
 We set aside a certain number of nodes specifically for interactive jobs in each of the "devel" partitions.
 
@@ -111,7 +111,7 @@ For example:
 <!-- TODO: Replace with AICR example -->
 
 ```bash
-[user01@login0001 ~]$ salloc --partition=rtx-devel --gpus=1 --cpus-per-task=4 --mem=16G --time=01:00:00 --qos=interactive
+[user01@login0001 ~]$ salloc --partition=rtx-devel --gpus=1 --cpus-per-task=4 --mem=16G --time=01:00:00
 salloc: Pending job allocation 60159437
 salloc: job 60159437 queued and waiting for resources
 salloc: job 60159437 has been allocated resources
