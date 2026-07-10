@@ -21,6 +21,8 @@ nav:
 #    - Troubleshooting: running-jobs/troubleshooting.md
   - Recipes:
     - Snapshots: restoring-data.md
+    - PyTorch on GPUs - I: recipes/pytorch-gpu.md
+    - PyTorch on GPUs - II: recipes/pytorch-gpu-advanced.md
   - Getting Help: getting-help.md
   - Acceptable Use: acceptable-use.md
   - Acknowledging AICR: acknowledging-aicr.md
