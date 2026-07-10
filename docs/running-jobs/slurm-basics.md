@@ -75,9 +75,9 @@ In the output you'll see a summary of how many nodes of each configuration is in
 
 PARTITION       NODES       CPUS        MEMORY          GRES                
 cpu             5           128         1159937         (null)              
-rtx-batch       17          128         2321503         gpu:rtx6000:8       
+rtx-batch       17          128         2321503         gpu:rtx_pro_6000:8       
 b200-batch      28          128         2321503         gpu:b200:8          
-rtx-devel       2           128         2321503         gpu:rtx6000:8       
+rtx-devel       2           128         2321503         gpu:rtx_pro_6000:8       
 b200-devel      3           128         2321503         gpu:b200:8  
 ```
 
