@@ -21,6 +21,7 @@ nav:
 #    - Troubleshooting: running-jobs/troubleshooting.md
   - Recipes:
     - Snapshots: restoring-data.md
+    - JAX: recipes/jax.md
   - Getting Help: getting-help.md
   - Acceptable Use: acceptable-use.md
   - Acknowledging AICR: acknowledging-aicr.md
