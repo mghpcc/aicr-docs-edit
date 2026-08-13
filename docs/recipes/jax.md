@@ -6,9 +6,9 @@ JAX is a high-performance numerical computing library from Google that combines 
 
 JAX provides three core capabilities:
 
-- **NumPy API** -- `jax.numpy` is a drop-in replacement for NumPy that runs on GPUs
-- **Automatic differentiation** -- `jax.grad` differentiates arbitrary Python functions, including higher-order derivatives
-- **XLA compilation** -- `jax.jit` compiles functions to optimized GPU kernels via XLA, often outperforming hand-written CUDA
+- **NumPy API** — `jax.numpy` is a drop-in replacement for NumPy that runs on GPUs
+- **Automatic differentiation** — `jax.grad` differentiates arbitrary Python functions, including higher-order derivatives
+- **XLA compilation** — `jax.jit` compiles functions to optimized GPU kernels via XLA, often outperforming hand-written CUDA
 
 JAX is functional by design: functions are pure (no side effects), and arrays are immutable. This enables aggressive compiler optimizations and straightforward parallelism.
 
@@ -44,7 +44,7 @@ JAX is functional by design: functions are pure (no side effects), and arrays ar
     Use the NVIDIA JAX container from NGC for a pre-configured environment:
 
     ```bash
-    apptainer pull jax.sif docker://nvcr.io/nvidia/jax:24.04-py3
+    apptainer pull jax.sif docker://nvcr.io/nvidia/jax:26.07-py3
     ```
 
     Run your script with GPU support:
@@ -88,9 +88,10 @@ from jax import grad, jit
 
 # Generate synthetic data
 key = jax.random.PRNGKey(42)
-X = jax.random.normal(key, (1000, 10))
+data_key, noise_key = jax.random.split(key)
+X = jax.random.normal(data_key, (1000, 10))
 true_w = jnp.ones(10)
-y = X @ true_w + 0.1 * jax.random.normal(key, (1000,))
+y = X @ true_w + 0.1 * jax.random.normal(noise_key, (1000,))
 
 # Model: linear regression
 def loss_fn(w, X, y):
@@ -226,9 +227,10 @@ sharding = NamedSharding(mesh, PartitionSpec("batch"))
 
 # Generate synthetic data and shard it across all nodes/GPUs
 key = jax.random.PRNGKey(42)
-X = jax.random.normal(key, (8192, 10))
+data_key, noise_key = jax.random.split(key)
+X = jax.random.normal(data_key, (8192, 10))
 true_w = jnp.ones(10)
-y = X @ true_w + 0.1 * jax.random.normal(key, (8192,))
+y = X @ true_w + 0.1 * jax.random.normal(noise_key, (8192,))
 
 X = jax.device_put(X, sharding)
 y = jax.device_put(y, sharding)
@@ -240,7 +242,7 @@ def loss_fn(w, X, y):
 
 grad_fn = jit(grad(loss_fn))
 
-# Training loop -- each process computes on its local shard,
+# Training loop — each process computes on its local shard,
 # gradients are combined automatically across the mesh
 w = jnp.zeros(10)
 lr = 0.01
@@ -270,6 +272,8 @@ JAX has a modular ecosystem. Common companion libraries:
 A typical Flax + Optax training pattern:
 
 ```python
+import jax
+import jax.numpy as jnp
 import flax.linen as nn
 import optax
 
@@ -296,7 +300,7 @@ opt_state = optimizer.init(params)
 | Aspect | JAX | PyTorch |
 |--------|-----|---------|
 | Programming model | Functional (pure functions, immutable arrays) | Imperative (in-place ops, mutable tensors) |
-| Compilation | XLA (`jax.jit`) -- compiles entire functions | `torch.compile` -- optional, graph capture |
+| Compilation | XLA (`jax.jit`) — compiles entire functions | `torch.compile` — optional, graph capture |
 | Autodiff | `jax.grad` on any Python function | `loss.backward()` on tensor graph |
 | Multi-GPU (single node) | Single process, automatic sharding | One process per GPU (`torchrun`) |
 | Ecosystem | Flax, Optax, Equinox (modular) | torchvision, torchaudio, HuggingFace (large) |
