@@ -6,11 +6,7 @@
 
 ## To Contribute
 
-<!-- TODO: Update to using forks -->
-
-1. Create a fork of the [aicr-docs-edit](https://github.com/lmilechin/aicr-docs-edit) repository
-1. Clone your fork of the aicr-docs-edit repository to your computer (you only need to do this once).
-2. Set up remotes to your fork and to the original [aicr-docs-edit](https://github.com/lmilechin/aicr-docs-edit) repository
+1. Clone the [aicr-docs-edit](https://github.com/mghpcc/aicr-docs-edit) repository to your computer (you only need to do this once).
 2. You can view the web page locally [see below](#building-locally)
 3. If you've already cloned the repo and created a branch in the past (run `git status` to see what branch you are on), be sure to checkout the main branch and pull any changes before creating a new branch:
 ```bash
@@ -26,11 +22,11 @@ git commit -m "short description of update"
 git push
 ```
 6. Create a Pull Request (PR)
-    1. Go back to the [aicr-docs-edit](https://github.com/lmilechin/aicr-docs-edit) repo in your browser.
+    1. Go back to the [aicr-docs-edit](https://github.com/mghpcc/aicr-docs-edit) repo in your browser.
     2. If you just pushed the branch you'll see a link suggesting you create a PR, click it if it's there. If it's not there, click "Pull Requests" then "New pull request", click where it says "compare: main" and select your branch and then click "Create pull request".
     3. Fill out the form with a short description of your changes and title.
-    4. A few minutes after your PR is created a preview will be available. Given the PR number N, you can see the preview at https://lmilechin.github.io/aicr-docs-preview/PR/PRN. For example, for PR1, the preview is at https://lmilechin.github.io/aicr-docs-preview/PR/PR1.
-7. At least one ORCD other team member should review the PR before merging. We may ask for additional changes.
+    4. A few minutes after your PR is created a preview will be available. Given the PR number N, you can see the preview at https://mghpcc.github.io/aicr-docs-preview/PR/PRN. For example, for PR1, the preview is at https://mghpcc.github.io/aicr-docs-preview/PR/PR1.
+7. At least one AICR User Support Working Group team member should review the PR before merging. You can post in the #aicr Slack channel asking for a review if you aren't sure who to ask. We may ask for additional changes.
 8. Once the changes have been approved the PR can be merged into the main branch. The web page will be updated automatically.
 
 If any changes have been merged into main in the meantime, you should merge these into your branch before merging it. You can do this at anytime to get any updates on the main branch.
@@ -50,13 +46,8 @@ When a PR is submitted or updated a Github action step will automatically try an
 The PR action will produces and online and a downloadable preview of the changes.
 
 #### Online preview
-An online preview is automatically produced for each PR at the location https://lmilechin.github.io/aicr-docs-preview/PR/PRN, where
-N is the number of the PR. Within a PR the preview link can be accessed by selecting the following sections
-   * Show all checks
-   * Details
-   * Summary
-
-the preview location URL is shown next to the text `URL for preview` in the Github action summary.
+An online preview is automatically produced for each PR at the location https://mghpcc.github.io/aicr-docs-preview/PR/PRN, where
+N is the number of the PR. Within a PR the preview link is placed in the second comment in the conversation tab.
 
 ## Building Locally
 
