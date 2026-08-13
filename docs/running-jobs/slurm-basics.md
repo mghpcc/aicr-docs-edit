@@ -9,7 +9,7 @@ tags:
 AICR uses [Slurm](https://slurm.schedmd.com/) to manage compute resources and schedule jobs. You request resources, Slurm finds available nodes, and your job runs there.
 
 !!! danger
-    Do not run computation on login nodes. They are limited to 4 CPU cores and 8 GB memory per user. Processes exceeding these limits will be terminated.
+    Do not run computation on login nodes. Login nodes are shared and have strict resource limits. Processes exceeding these limits will be terminated.
 
 <!-- TODO: Are these limits true? -->
 
