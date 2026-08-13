@@ -1,8 +1,5 @@
 # Containers
 
-<!-- TODO: 
-- Include a note about running multinode containerized jobs -->
-
 Containers provide an isolated environment to run applications. You may want to use a container if you need to run an application that requires a specific version of a library or software package that is not available or difficult to install on AICR. Containers can also be used to package and distribute applications, making it easier to share your work with others.
 
 The most well-known container software is Docker, which is designed for laptops/desktops and cloud platforms. On AICR, however, we use Apptainer instead, which is particularly designed for HPC.
@@ -36,8 +33,59 @@ Once this command completes, you will have a file called `pytorch_26.07-py3.sif`
 There are a few ways to use an Apptainer image. The most common way is to run a command inside the container using the `apptainer exec` command. For example, to run a Python script called `train.py` inside the PyTorch container, you can use the following command:
 
 ```bash
-apptainer exec pytorch_26.07-py3.sif python train.py
+apptainer exec --nv pytorch_26.07-py3.sif python train.py
 ```
+
+Above, the `--nv` option is used to enable GPU support inside the container. This is necessary if you want to use PyTorch with GPUs.
+
+### Multinode Jobs
+
+Running a container across multiple nodes requires some way for the processes on each node to find each other. How you do this depends on what your application uses for communication: MPI applications use Slurm's PMIx support, while PyTorch distributed applications use `torchrun`'s rendezvous mechanism.
+
+#### MPI Applications
+
+If your application uses MPI, you can use `srun` with the `--mpi=pmix` option and the `apptainer exec` command. For example, to run an MPI program called `mpi_program` using 2 nodes and 8 tasks per node:
+
+```bash
+srun -N 2 --ntasks-per-node=8 --mpi=pmix apptainer exec --nv pytorch_26.07-py3.sif ./mpi_program
+```
+
+In this approach, `srun` launches a separate `apptainer exec` process for each of the 16 tasks, and the `--mpi=pmix` flag tells Slurm to use the PMIx plugin to set up the wire-up environment and coordinate the parallel launch across the 2 nodes. The MPI library used for communication is the one installed *inside* the container, not the host's.
+
+!!! warning
+    Because the container supplies its own MPI, that MPI must be built against a version of PMIx that is compatible with the one on the host. If it only supports the older PMI2 interface, the launch will fail in a confusing way: instead of one 16-rank job, you will get 16 independent single-rank jobs, each reporting itself as rank 0. The container also needs the InfiniBand and UCX libraries in order to use AICR's high-speed [InfiniBand fabric](../system-description.md); without them, MPI will silently fall back to slower TCP communication.
+
+#### PyTorch Distributed Applications
+
+PyTorch distributed applications typically use NCCL rather than MPI, so they do not need `--mpi=pmix`. Instead, `srun` launches one `torchrun` per node, and `torchrun` coordinates the worker processes. This is the same approach described in [Multi-Node Multi-GPU Data Parallelism](../recipes/pytorch-gpu.md#multi-node-multi-gpu-data-parallelism), but with the `torchrun` command wrapped in `apptainer exec` instead of run from a conda environment:
+
+```bash title="submit_multinode_container.sh"
+#!/bin/bash
+#SBATCH -p rtx-batch
+#SBATCH -N 2
+#SBATCH --ntasks-per-node=1
+#SBATCH --cpus-per-task=2
+#SBATCH --gpus-per-node=2
+#SBATCH --mem=20GB
+
+# Get IP address of the master node
+nodes=( $( scontrol show hostnames $SLURM_JOB_NODELIST ) )
+nodes_array=($nodes)
+master_node=${nodes_array[0]}
+master_node_ip=$(srun --nodes=1 --ntasks=1 -w "$master_node" hostname --ip-address)
+
+srun apptainer exec --nv pytorch_26.07-py3.sif \
+     torchrun --nnodes=$SLURM_NNODES \
+     --nproc-per-node=$SLURM_CPUS_PER_TASK \
+     --rdzv-id=$SLURM_JOB_ID \
+     --rdzv-backend=c10d \
+     --rdzv-endpoint=$master_node_ip:1234 \
+     multinode.py --batch_size=1024 100 20
+```
+
+Note that there is no `module load` step here: PyTorch, CUDA, and `torchrun` all come from inside the container.
+
+<!-- TODO: Test whether this runs -->
 
 ### Bind Mounting Directories
 
@@ -69,11 +117,35 @@ From: anaconda/miniconda
     conda install pytorch torchvision torchaudio -c pytorch
 ```
 
+There are many more options you can include in a definition file, such as environment variables, files to copy into the image, and scripts to run during the build process. You can find more information about writing Apptainer definition files in the [Apptainer documentation](https://apptainer.org/docs/user/main/definition_files.html).
+
 !!! tip
     On AICR, we have `fakeroot` enabled, which allows you to run root-level commands inside a container without needing root privileges on the host. This means you can build an image using commands like `apt-get` or `yum` to install software packages.
 
 ### Building an Image in Sandbox Mode
 
-If you want to build an image interactively, you can use the `--sandbox` option to create a writable container image. This allows you to make changes to the container and test them before building a final image. Here's an example of how to build a sandbox image based on the PyTorch image we downloaded earlier:
+If you want to build an image interactively, you can use the `--sandbox` option to create a writable container image. This allows you to make changes to the container and test them before building a final image. Here's an example of how to build a new image based on a base Ubuntu image in sandbox mode:
 
+```bash
+apptainer pull --sandbox docker://ubuntu:22.04
+```
 
+This will create a writable container image in a directory called `ubuntu_22.04.sif`. You can then enter the container using the `apptainer shell` command:
+
+```bash
+apptainer shell --writable --fakeroot ubuntu_22.04.sif
+```
+
+Then, within the container, you can install software packages, copy files, and make any other changes you need, e.g.:
+
+```bash
+apt update
+apt install -y python3 python3-pip
+pip3 install numpy pandas
+```
+
+Once you are done making changes, you can exit the container and build a final image using the `apptainer build` command:
+
+```bash
+apptainer build python_custom.sif ubuntu_22.04.sif
+```
