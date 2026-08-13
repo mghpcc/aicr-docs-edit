@@ -20,12 +20,14 @@ nav:
     - Monitoring: running-jobs/monitoring.md
 #    - Troubleshooting: running-jobs/troubleshooting.md
   - Recipes:
-    - Snapshots: restoring-data.md
     - JAX: recipes/jax.md
+    - PyTorch on GPUs - I: recipes/pytorch-gpu.md
+    - PyTorch on GPUs - II: recipes/pytorch-gpu-advanced.md
   - Getting Help: getting-help.md
+  - Monthly Maintenance: maintenance.md
   - Acceptable Use: acceptable-use.md
   - Acknowledging AICR: acknowledging-aicr.md
-  - About: about.md #This documentation is created by the teams at [these places], list links to pages we’ve borrowed from
+  - About: about.md
   - Index: tags.md
 
 theme: 
