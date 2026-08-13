@@ -92,10 +92,7 @@ $ ssh aicr
 
 ## What You Can Do on Login Nodes
 
-Login nodes are shared and have strict resource limits:
-
-- **4 CPU cores** and **8 GB memory** per user
-- Processes exceeding these limits will be terminated
+Login nodes are shared and have strict resource limits. Processes exceeding these limits will be terminated.
 
 !!! danger
     Do not run computation on login nodes. Use them for:
