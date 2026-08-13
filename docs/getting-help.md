@@ -11,7 +11,7 @@ AICR support is provided through the research computing teams at each participat
 
 | Institution | Support Team | Contact |
 |-------------|-------------|---------|
-| Boston University | [Research Computing Services (RCS)](https://www.bu.edu/tech/support/research/) | <help@rcs.bu.edu> |
+| Boston University | [Research Computing Services (RCS)](https://www.bu.edu/tech/support/research/) | <aicr-support@rcs.bu.edu> |
 | Harvard | [University Research Computing and Data (RCD) Services](https://rc.harvard.edu/) | <urcds-aicr@harvard.edu> |
 | MIT | [Office of Research Computing and Data (ORCD)](https://orcd.mit.edu/) | <orcd-help-aicr@mit.edu> |
 | Northeastern | [Research Computing (RC)](https://rc.northeastern.edu/) |  <rchelp@northeastern.edu> | 
