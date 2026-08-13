@@ -47,12 +47,7 @@ The PR action will produces and online and a downloadable preview of the changes
 
 #### Online preview
 An online preview is automatically produced for each PR at the location https://mghpcc.github.io/aicr-docs-preview/PR/PRN, where
-N is the number of the PR. Within a PR the preview link can be accessed by selecting the following sections
-   * Show all checks
-   * Details
-   * Summary
-
-the preview location URL is shown next to the text `URL for preview` in the Github action summary.
+N is the number of the PR. Within a PR the preview link is placed in the second comment in the conversation tab.
 
 ## Building Locally
 
