@@ -66,12 +66,14 @@ Bootstrap: docker
 From: anaconda/miniconda
 
 %post
-    conda install pytorch torchvision torchaudio cpuonly -c pytorch
+    conda install pytorch torchvision torchaudio -c pytorch
 ```
 
 !!! tip
     On AICR, we have `fakeroot` enabled, which allows you to run root-level commands inside a container without needing root privileges on the host. This means you can build an image using commands like `apt-get` or `yum` to install software packages.
 
 ### Building an Image in Sandbox Mode
+
+If you want to build an image interactively, you can use the `--sandbox` option to create a writable container image. This allows you to make changes to the container and test them before building a final image. Here's an example of how to build a sandbox image based on the PyTorch image we downloaded earlier:
 
 
