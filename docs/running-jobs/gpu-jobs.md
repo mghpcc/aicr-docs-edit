@@ -17,6 +17,8 @@ AICR's primary resource is its GPUs. This page covers how to request GPUs, choos
 | `rtx-devel` | RTX PRO 6000 | 8 | 4h | Testing and debugging |
 | `b200-batch` | B200 | 8 | 24h | Large-scale AI/ML training |
 | `b200-devel` | B200 | 8 | 4h | Testing and debugging |
+| `b200-fullnode` | B200 | 8 | 24h | Whole-node jobs needing all 8 GPUs — [trial](slurm-basics.md#whole-node-b200-jobs-trial) |
+| `preemptable` | RTX PRO 6000 and B200 | 8 | 24h | Work that can tolerate [interruption](slurm-basics.md#preemption) |
 
 !!! tip
     Use `devel` partitions for testing — they have shorter queue times. Switch to `batch` for production runs.
@@ -40,7 +42,9 @@ Your partition will specify the GPU type:
 
 !!! note
 
-    Partitions on AICR are homogenous, meaning node configurations are identical within a partition, including the GPU type. Since you include the partition in your job script you do not need to specify the GPU type.
+    Most AICR partitions are homogenous, meaning node configurations are identical within a partition, including the GPU type. Since you include the partition in your job script you do not need to specify the GPU type.
+
+    The exception is `preemptable`, which spans both GPU types and the CPU nodes. On that partition, name the type explicitly with `--gres=gpu:b200:N` or `--gres=gpu:rtx_pro_6000:N`.
 
 ## Single-GPU Job
 

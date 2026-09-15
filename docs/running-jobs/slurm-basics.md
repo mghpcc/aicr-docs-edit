@@ -9,9 +9,7 @@ tags:
 AICR uses [Slurm](https://slurm.schedmd.com/) to manage compute resources and schedule jobs. You request resources, Slurm finds available nodes, and your job runs there.
 
 !!! danger "Do not run computation on login nodes"
-    Do not run computation on login nodes. Login nodes are shared and have strict resource limits. Processes exceeding these limits will be terminated.
-
-<!-- TODO: Are these limits true? -->
+    Login nodes are shared. Each user is limited to **4 CPU cores** and **5 GiB of memory** across all of their processes on a login node. Work that exceeds the memory limit will be killed; work that exceeds the CPU limit will be throttled. Run computation in a Slurm job instead.
 
 ## Partitions
 
@@ -19,15 +17,17 @@ AICR has a few different types of nodes (CPU only nodes, different types of GPUs
 
 The partitions on AICR are:
 
-| <div style="width:6em">Partition</div> | GPU Type | Max Time | Default Time | Use Case |
-|-----------|-----------|----------|--------------|----------|
-| `cpu` | — | 24h | 15 min | Data analysis, workflow orchestration |
-| `rtx-batch` | RTX Pro 6000 | 24h | 1h | RTX GPU batch jobs |
-| `rtx-devel` | RTX Pro 6000 | 4h | 15 min | RTX GPU interactive development and testing |
-| `b200-batch` | B200 | 24h | 1h | B200 GPU batch jobs |
-| `b200-devel` | B200 | 4h | 15 min | B200 GPU interactive development and testing |
+| <div style="width:8em">Partition</div> | GPU Type | Nodes | Max Time | Default Time | Use Case |
+|-----------|-----------|-------|----------|--------------|----------|
+| `rtx-batch` | RTX Pro 6000 | 17 | 24h | 1h | RTX GPU batch jobs |
+| `rtx-devel` | RTX Pro 6000 | 2 | 4h | 15 min | RTX GPU interactive development and testing |
+| `b200-batch` | B200 | 25 | 24h | 1h | B200 GPU batch jobs |
+| `b200-devel` | B200 | 2 | 4h | 15 min | B200 GPU interactive development and testing |
+| `b200-fullnode` | B200 | 4 | 24h | 1h | Whole-node B200 jobs — [trial](#whole-node-b200-jobs-trial) |
+| `preemptable` | Mixed | 51 | 24h | 15 min | Lower-priority work that can be [preempted](#preemption) |
+| `cpu` *(default)* | — | 5 | 24h | 15 min | Data analysis, workflow orchestration |
 
-Default memory: 1 GB per CPU. Development (devel) partitions limited to 4 concurrent jobs per user. For GPU hardware details, see [System Description](../system-description.md).
+Default memory: 1 GB per CPU, except on `b200-fullnode` (16 GB per CPU). Each devel partition limits you to 2 GPUs at a time. Interactive jobs are limited to 4 at a time across the cluster and cannot run in the `-batch` partitions — see [Interactive Jobs](#interactive-jobs). For GPU hardware details, see [System Description](../system-description.md).
 
 To see the partitions on AICR, run the `sinfo` command:
 
@@ -42,15 +42,21 @@ The `sinfo` command will tell you the names of the partitions, what their time l
 To see what resources are available run `sinfo`. The `sinfo` command will show how many nodes are in each state. Nodes in "idle" state have all cores available, nodes in "mix" state have some cores available, and nodes in "alloc" state have no cores or other resources available.
 
 ```
-PARTITION    AVAIL  TIMELIMIT  NODES  STATE NODELIST
-cpu             up 1-00:00:00      1    mix w0001
-cpu             up 1-00:00:00      4   idle w[0002-0005]
-rtx-batch       up 1-00:00:00     17   idle a[0001-0017]
-b200-batch      up 1-00:00:00     28   idle b[0001-0023,0026-0028]
-rtx-devel       up    4:00:00      1    mix a0018
-rtx-devel       up    4:00:00      1   idle a0019
-b200-devel      up    4:00:00      3   idle b[0029-0031]
+PARTITION       AVAIL  TIMELIMIT  NODES  STATE NODELIST
+cpu*               up 1-00:00:00      5    mix w[0001-0005]
+rtx-batch          up 1-00:00:00     14    mix a[0001-0014]
+rtx-batch          up 1-00:00:00      3  alloc a[0015-0017]
+rtx-devel          up    4:00:00      2    mix a[0018-0019]
+b200-batch         up 1-00:00:00     18    mix b[0001-0018]
+b200-batch         up 1-00:00:00      7  alloc b[0019-0025]
+b200-devel         up    4:00:00      2    mix b[0030-0031]
+b200-fullnode      up 1-00:00:00      1    mix b0029
+b200-fullnode      up 1-00:00:00      2  alloc b[0026,0028]
+b200-fullnode      up 1-00:00:00      1   idle b0027
+preemptable        up 1-00:00:00     51    mix a[0001-0017],b[0001-0029],w[0001-0005]
 ```
+
+The `*` after `cpu` marks it as the default partition — a job submitted without `--partition` will run there, on CPU nodes with no GPU.
 
 Common node states are:
 
@@ -74,12 +80,18 @@ In the output you'll see a summary of how many nodes of each configuration is in
 ```
 
 PARTITION       NODES       CPUS        MEMORY          GRES                
-cpu             5           128         1159937         (null)              
-rtx-batch       17          128         2321503         gpu:rtx_pro_6000:8       
-b200-batch      28          128         2321503         gpu:b200:8          
-rtx-devel       2           128         2321503         gpu:rtx_pro_6000:8       
-b200-devel      3           128         2321503         gpu:b200:8  
+cpu*            5           128         1159937         (null)              
+rtx-batch       17          128         2321639         gpu:rtx_pro_6000:8       
+rtx-devel       2           128         2321639         gpu:rtx_pro_6000:8       
+b200-batch      25          128         2321633         gpu:b200:8          
+b200-devel      2           128         2321633         gpu:b200:8          
+b200-fullnode   4           128         2321633         gpu:b200:8          
+preemptable     17          128         2321639         gpu:rtx_pro_6000:8       
+preemptable     29          128         2321633         gpu:b200:8          
+preemptable     5           128         1159937         (null)              
 ```
+
+`preemptable` appears three times because it is the only partition that spans more than one node type.
 
 ## Running Jobs
 
@@ -100,7 +112,12 @@ The basic command for requesting an interactive job on the `rtx-devel` partition
 salloc --partition=rtx-devel --gpus=1 --cpus-per-task=4 --mem=16G --time=01:00:00
 ```
 
-<!-- TODO: Check that this qos works -->
+!!! note "Where interactive jobs can run"
+    Interactive jobs — `salloc`, or `srun` without a batch script — are not permitted in `rtx-batch`, `b200-batch`, or `b200-fullnode`. Submitting one fails immediately.
+
+    Use `rtx-devel` or `b200-devel` for interactive GPU work, or `cpu` for interactive work that does not need a GPU.
+
+You may hold up to 4 interactive jobs at a time across the cluster. On the devel partitions the binding limit is usually GPUs rather than job count: each devel partition allows you 2 GPUs at a time, so two single-GPU jobs — or one job using both.
 
 The `--partition=rtx-devel` is a flag that is passed to the scheduler, `--partition` specifies the partition. This command will allocate 4 cores (`--cpus-per-task`), one GPU (`--gpus`), and 16GB of RAM (`--mem`) on a node in the `rtx-devel` partition for one hour. Since this is the `rtx-devel` you will get an RTX Pro 6000 GPU.
 
@@ -108,20 +125,18 @@ We set aside a certain number of nodes specifically for interactive jobs in each
 
 For example:
 
-<!-- TODO: Replace with AICR example -->
-
 ```bash
-[user01@login0001 ~]$ salloc --partition=rtx-devel --gpus=1 --cpus-per-task=4 --mem=16G --time=01:00:00
-salloc: Pending job allocation 60159437
-salloc: job 60159437 queued and waiting for resources
-salloc: job 60159437 has been allocated resources
-salloc: Granted job allocation 60159437
+[USERNAME@login0001 ~]$ salloc --partition=rtx-devel --gpus=1 --cpus-per-task=4 --mem=16G --time=01:00:00
+salloc: Pending job allocation 855421
+salloc: job 855421 queued and waiting for resources
+salloc: job 855421 has been allocated resources
+salloc: Granted job allocation 855421
 salloc: Waiting for resource configuration
-salloc: Nodes a0001 are ready for job
-[user01@a0001 ~]$ 
+salloc: Nodes a0018 are ready for job
+[USERNAME@a0018 ~]$ 
 ```
 
-Notice how the command prompt changes from `[user01@login0001 ~]$` to `[user01@a0001 ~]$`. This indicates that `user01` has started an interactive job on `a0001` and any commands issued will run on this node.
+Notice how the command prompt changes from `[USERNAME@login0001 ~]$` to `[USERNAME@a0018 ~]$`. This indicates that your job has started on `a0018` and any commands you issue will run on that node.
 
 ### Submitting a Batch Job
 
@@ -197,6 +212,80 @@ Some of the most common job flags are listed below. Some job flags have a single
 | [`--exclusive`](https://slurm.schedmd.com/sbatch.html#OPT_exclusive) | NA  | Exclusive node | `--exclusive` |
 | [`--dependency`](https://slurm.schedmd.com/sbatch.html#OPT_dependency) | `-d`  | Wait for job | `--dependency=afterok:12345` |
 | [`--mail-type`](https://slurm.schedmd.com/sbatch.html#OPT_mail-type) | NA  | Email alerts | `--mail-type=END,FAIL` |
+
+## Preemption
+
+The `preemptable` partition spans 51 nodes — the RTX batch nodes, the B200 batch and whole-node nodes, and the CPU nodes. It gives you access to capacity that is otherwise committed to other partitions, at the cost of your job being interrupted when that capacity is needed. It also applies no per-user GPU cap, unlike the 32-GPU limit on `rtx-batch` and `b200-batch`. Work here counts toward your usage at the same rate as the equivalent batch partition.
+
+Jobs in `preemptable` run at the lowest priority on the cluster. When a job in any other partition needs a node your job is running on, your job is preempted.
+
+!!! warning "Jobs in `preemptable` can be interrupted at any time"
+    Only submit work to `preemptable` if it can tolerate being stopped and restarted. Checkpoint your work.
+
+### What happens when a job is preempted
+
+1. Your job receives `SIGTERM`.
+2. Up to 60 seconds later, it receives `SIGKILL`.
+3. **Batch jobs are automatically requeued.** The job script starts again from the beginning, keeping the same job ID. Any work not written to disk is lost.
+4. **Interactive jobs (`salloc`) are not requeued.** The allocation ends.
+
+Your job's final state is `PREEMPTED` with exit code `0:0`.
+
+If your job must never be requeued, submit it with `--no-requeue`. Note that this also prevents the job from being restarted after a node failure or a scheduled maintenance window, so it is rarely the right choice in `preemptable`.
+
+### Checkpointing
+
+Because a requeued job restarts from the beginning, long jobs in `preemptable` should write checkpoints and resume from them. The 60-second window between `SIGTERM` and `SIGKILL` is not enough time to write a large model checkpoint, so checkpoint on a schedule during the run rather than trying to catch the signal.
+
+### Checking whether your job was preempted
+
+```bash
+sacct -D -j JOBID --format=JobID,Partition,State,ExitCode,Start,End
+```
+
+The `-D` flag is required. Without it, `sacct` shows only the most recent run of a requeued job, so a job that was preempted and requeued will appear under its later state rather than as `PREEMPTED`.
+
+If you search by state rather than by job ID, give both a start and an end time:
+
+```bash
+sacct -u $USER -S 2026-09-01 -E now -s PREEMPTED --format=JobID,Partition,State,End
+```
+
+## Whole-Node B200 Jobs (Trial)
+
+!!! info "This is a trial"
+    The `b200-fullnode` partition is currently being trialled, and may change or be withdrawn in the future.
+
+The `b200-fullnode` partition provides four B200 nodes allocated whole. It is intended for work that needs at least a full node — distributed training across eight or more GPUs, and jobs that need the full NVLink domain.
+
+Request GPUs in multiples of eight — 8, 16, 24 or 32 — which is one node per eight GPUs. Fewer than eight is rejected at submission. Nodes are allocated exclusively, so you receive all 128 cores per node whether or not you ask for them, and you do not need `--exclusive`.
+
+If your work needs one or two GPUs, or parallelises easily across separate jobs, use `b200-batch` or `rtx-batch` instead — a whole-node job counts all eight GPUs toward your usage for as long as it holds the node, whether or not they are all busy.
+
+Memory is still requested explicitly, up to 2000 GB per node.
+
+The following script requests one whole node — eight B200 GPUs and 1800 GB of memory — for 12 hours:
+
+```bash
+#!/bin/bash
+#SBATCH --job-name=fullnode_train
+#SBATCH --partition=b200-fullnode
+#SBATCH --nodes=1
+#SBATCH --gpus=8
+#SBATCH --mem=1800G
+#SBATCH --time=12:00:00
+#SBATCH --account=ACCOUNT_NAME
+#SBATCH --output=%x-%j.out
+
+module load miniforge3
+module load cuda
+
+torchrun --nproc_per_node=8 train.py
+```
+
+### Interaction with preemption
+
+These nodes are also part of the `preemptable` partition, so a whole-node job will preempt any `preemptable` work running on the node it is assigned.
 
 ## Fairshare and Priority
 
