@@ -44,7 +44,7 @@ Your partition will specify the GPU type:
 
     Most AICR partitions are homogenous, meaning node configurations are identical within a partition, including the GPU type. Since you include the partition in your job script you do not need to specify the GPU type.
 
-    The exception is `preemptable`, which spans both GPU types and the CPU nodes. On that partition, name the type explicitly with `--gres=gpu:b200:N` or `--gres=gpu:rtx_pro_6000:N`.
+    The exception is `preemptable`, which spans both GPU types. On that partition, name the type explicitly with `--gres=gpu:b200:N` or `--gres=gpu:rtx_pro_6000:N`.
 
 ## Single-GPU Job
 

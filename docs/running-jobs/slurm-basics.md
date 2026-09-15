@@ -24,7 +24,7 @@ The partitions on AICR are:
 | `b200-batch` | B200 | 25 | 24h | 1h | B200 GPU batch jobs |
 | `b200-devel` | B200 | 2 | 4h | 15 min | B200 GPU interactive development and testing |
 | `b200-fullnode` | B200 | 4 | 24h | 1h | Whole-node B200 jobs — [trial](#whole-node-b200-jobs-trial) |
-| `preemptable` | Mixed | 51 | 24h | 15 min | Lower-priority work that can be [preempted](#preemption) |
+| `preemptable` | Mixed | 46 | 24h | 15 min | Lower-priority work that can be [preempted](#preemption) |
 | `cpu` *(default)* | — | 5 | 24h | 15 min | Data analysis, workflow orchestration |
 
 Default memory: 1 GB per CPU, except on `b200-fullnode` (16 GB per CPU). Each devel partition limits you to 2 GPUs at a time. Interactive jobs are limited to 4 at a time across the cluster and cannot run in the `-batch` partitions — see [Interactive Jobs](#interactive-jobs). For GPU hardware details, see [System Description](../system-description.md).
@@ -53,7 +53,7 @@ b200-devel         up    4:00:00      2    mix b[0030-0031]
 b200-fullnode      up 1-00:00:00      1    mix b0029
 b200-fullnode      up 1-00:00:00      2  alloc b[0026,0028]
 b200-fullnode      up 1-00:00:00      1   idle b0027
-preemptable        up 1-00:00:00     51    mix a[0001-0017],b[0001-0029],w[0001-0005]
+preemptable        up 1-00:00:00     46    mix a[0001-0017],b[0001-0029]
 ```
 
 The `*` after `cpu` marks it as the default partition — a job submitted without `--partition` will run there, on CPU nodes with no GPU.
@@ -88,10 +88,9 @@ b200-devel      2           128         2321633         gpu:b200:8
 b200-fullnode   4           128         2321633         gpu:b200:8          
 preemptable     17          128         2321639         gpu:rtx_pro_6000:8       
 preemptable     29          128         2321633         gpu:b200:8          
-preemptable     5           128         1159937         (null)              
 ```
 
-`preemptable` appears three times because it is the only partition that spans more than one node type.
+`preemptable` appears twice because it is the only partition that spans more than one node type.
 
 ## Running Jobs
 
@@ -215,7 +214,7 @@ Some of the most common job flags are listed below. Some job flags have a single
 
 ## Preemption
 
-The `preemptable` partition spans 51 nodes — the RTX batch nodes, the B200 batch and whole-node nodes, and the CPU nodes. It gives you access to capacity that is otherwise committed to other partitions, at the cost of your job being interrupted when that capacity is needed. It also applies no per-user GPU cap, unlike the 32-GPU limit on `rtx-batch` and `b200-batch`. Work here counts toward your usage at the same rate as the equivalent batch partition.
+The `preemptable` partition spans 46 nodes — the RTX batch nodes, plus the B200 batch and whole-node nodes. It gives you access to capacity that is otherwise committed to other partitions, at the cost of your job being interrupted when that capacity is needed. It also applies no per-user GPU cap, unlike the 32-GPU limit on `rtx-batch` and `b200-batch`. Work here counts toward your usage at the same rate as the equivalent batch partition.
 
 Jobs in `preemptable` run at the lowest priority on the cluster. When a job in any other partition needs a node your job is running on, your job is preempted.
 
