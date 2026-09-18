@@ -214,7 +214,7 @@ Some of the most common job flags are listed below. Some job flags have a single
 
 ## Preemption
 
-The `preemptable` partition spans 46 nodes — the RTX batch nodes, plus the B200 batch and whole-node nodes. It gives you access to capacity that is otherwise committed to other partitions, at the cost of your job being interrupted when that capacity is needed. It also applies no per-user GPU cap, unlike the 32-GPU limit on `rtx-batch` and `b200-batch`. Work here counts toward your usage at the same rate as the equivalent batch partition.
+The `preemptable` partition spans 46 nodes — the RTX batch nodes, plus the B200 batch and whole-node nodes. The CPU nodes are not part of it, so jobs in the `cpu` partition are never preempted. It gives you access to capacity that is otherwise committed to other partitions, at the cost of your job being interrupted when that capacity is needed. It also applies no per-user GPU cap, unlike the 32-GPU limit on `rtx-batch` and `b200-batch`. Work here counts toward your usage at the same rate as the equivalent batch partition.
 
 Jobs in `preemptable` run at the lowest priority on the cluster. When a job in any other partition needs a node your job is running on, your job is preempted.
 
