@@ -20,15 +20,15 @@ AICR is a GPU-focused AI computing cluster housed at the [MGHPCC](https://www.mg
 
 ## Partitions
 
-| Partition | Cores | Memory | GPUs/Node | GPU Memory |Max Time | Use Case |
-|-----------|----------|-----------|----------|----------|----------|----------|
-| `rtx-batch` | 128 | 2.25 TB | 8 RTX PRO 6000 | 96 GB | 24h | RTX GPU batch workloads |
-| `rtx-devel` | 128 | 2.25 TB | 8 RTX PRO 6000 | 96 GB | 4h | Interactive GPU development |
-| `b200-batch` | 128 | 2.25 TB | 8 B200 | 180 GB | 24h | B200 GPU batch workloads |
-| `b200-devel` | 128 | 2.25 TB | 8 B200 | 180 GB | 4h | Interactive GPU development |
-| `cpu`     | 128 | 1 TB | — | — | 24h | Data analysis, workflow orchestration |
-
-Default memory per CPU: 1 GB. Development partitions have a 4-concurrent-job limit per user.
+| Partition | Nodes | Cores | Memory | GPUs/Node | GPU Memory |Max Time | Use Case |
+|-----------|-------|----------|-----------|----------|----------|----------|----------|
+| `rtx-batch` | 17 | 128 | 2.25 TB | 8 RTX PRO 6000 | 96 GB | 24h | RTX GPU batch workloads |
+| `rtx-devel` | 2 | 128 | 2.25 TB | 8 RTX PRO 6000 | 96 GB | 4h | Interactive GPU development |
+| `b200-batch` | 25 | 128 | 2.25 TB | 8 B200 | 180 GB | 24h | B200 GPU batch workloads |
+| `b200-devel` | 2 | 128 | 2.25 TB | 8 B200 | 180 GB | 4h | Interactive GPU development |
+| `b200-fullnode` | 4 | 128 | 2.25 TB | 8 B200 | 180 GB | 24h | Whole-node B200 jobs — trial |
+| `preemptable` | 46 | 128 | 2.25 TB | 8 (mixed types) | varies | 24h | Preemptible work on shared capacity |
+| `cpu`     | 5 | 128 | 1 TB | — | — | 24h | Data analysis, workflow orchestration |
 
 ## Storage
 

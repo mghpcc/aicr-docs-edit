@@ -56,10 +56,19 @@ sacct -u $USER --starttime=now-7days --format=JobID,JobName,Partition,Elapsed,St
 | `Partition` | Partition used |
 | `Elapsed` | Actual wall time |
 | `MaxRSS` | Peak memory usage |
-| `State` | Final job state (COMPLETED, FAILED, TIMEOUT, etc.) |
+| `State` | Final job state (COMPLETED, FAILED, TIMEOUT, PREEMPTED, etc.) |
 | `ExitCode` | Exit code (0 = success) |
 | `AllocCPUS` | CPUs allocated |
 | `AllocTRES` | All resources allocated (CPUs, memory, GPUs) |
+
+!!! tip "Requeued and preempted jobs"
+    If your job ran in the `preemptable` partition, add `-D` to see every run:
+
+    ```bash
+    sacct -D -j JOBID --format=JobID,Partition,State,ExitCode,Start,End
+    ```
+
+    Without `-D`, `sacct` shows only the most recent run, so a job that was preempted and requeued will not show its `PREEMPTED` state. When searching by state rather than by job ID, give both a start and an end time: `sacct -u $USER -S 2026-09-01 -E now -s PREEMPTED`.
 
 ## Partition and Node Status
 
