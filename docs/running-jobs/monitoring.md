@@ -45,7 +45,7 @@ sacct -u $USER --starttime=now-7days --format=JobID,JobName,Partition,Elapsed,St
 ```
 
 !!! tip
-    Use `sacct` to check whether your jobs are using the resources you requested. If `MaxRSS` is much lower than your `--mem` request, reduce memory in future jobs to improve your fairshare.
+    Use `sacct` to check whether your jobs are using the resources you requested. If `MaxRSS` is much lower than your `--mem` request, reduce memory in future jobs so the unused memory is available to other jobs.
 
 ### Useful sacct Format Fields
 

@@ -48,7 +48,7 @@ From here you can:
 Select **Clusters > Shell Access** to open a terminal session in your browser. This gives you the same command-line access as SSH, running on a login node.
 
 !!! warning
-    The same login node resource limits apply in OnDemand shell sessions: 4 CPU cores, 8 GB memory. Do not run computation here, instead submit jobs through Slurm.
+    The same [login node resource limits](../running-jobs/slurm-basics.md) apply in OnDemand shell sessions. Do not run computation here, instead submit jobs through Slurm.
 
 ## Interactive Applications
 
@@ -66,7 +66,7 @@ To launch an interactive app:
 3. Click **Launch**
 4. Wait for the job to start, then click **Connect** to open the session
 
-Your session runs as a Slurm job and counts against your fairshare allocation.
+Sessions that use GPUs count toward your fairshare usage for as long as they run, so end sessions you are no longer using.
 
 ## See Also
 
