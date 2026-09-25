@@ -288,7 +288,7 @@ These nodes are also part of the `preemptable` partition, so a whole-node job wi
 
 ## Fairshare and Priority
 
-AICR allocates resources fairly using a three-level hierarchy: **Institution → Project → User**. All institutions have equal shares. Your priority depends on recent usage relative to your institution's and project's allocation. Specify `--account` correctly and Slurm handles the rest.
+AICR allocates resources fairly using a three-level hierarchy: **Institution → Project → User**. Your priority depends on recent usage relative to your institution's and project's allocation. Specify `--account` correctly and Slurm handles the rest.
 
 ### Slurm Accounts
 
