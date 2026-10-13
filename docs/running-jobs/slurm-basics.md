@@ -27,7 +27,7 @@ The partitions on AICR are:
 | `preemptable` | Mixed | 46 | 24h | 15 min | Lower-priority work that can be [preempted](#preemption) |
 | `cpu` *(default)* | — | 5 | 24h | 15 min | Data analysis, workflow orchestration |
 
-Default memory: 1 GB per CPU, except on `b200-fullnode` (16 GB per CPU). Each devel partition limits you to 2 GPUs at a time. Interactive jobs are limited to 4 at a time across the cluster and cannot run in the `-batch` partitions — see [Interactive Jobs](#interactive-jobs). For GPU hardware details, see [System Description](../system-description.md).
+Default memory: 16 GB per CPU on the GPU partitions (`rtx-batch`, `rtx-devel`, `b200-batch`, `b200-devel`, `b200-fullnode`), and 1 GB per CPU on `cpu` and `preemptable`. Each devel partition limits you to 2 GPUs at a time. Interactive jobs are limited to 4 at a time across the cluster and cannot run in the `-batch` partitions — see [Interactive Jobs](#interactive-jobs). For GPU hardware details, see [System Description](../system-description.md).
 
 To see the partitions on AICR, run the `sinfo` command:
 
