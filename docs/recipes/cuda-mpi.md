@@ -135,7 +135,7 @@ salloc -n 2 --gpus-per-task=1 -p rtx-devel
 mpiexec --bind-to none -n 2 ./a.out
 ```
 
-The `salloc` command requests an interactive allocation and is only needed when working from a login node. If you are already in an interactive job on a compute node, or are running in a batch job, skip it.
+The `salloc` command requests an [interactive allocation](../running-jobs/slurm-basics.md#interactive-jobs) and is only needed when working from a login node. If you are already in an interactive job on a compute node, or are running in a batch job, skip it.
 
 The program should produce output like the following. The lines may appear in a different order, because the two tasks run asynchronously.
 
@@ -150,7 +150,7 @@ rBuf_h[0] = 1.000000
 
 ## Example Slurm job script
 
-The script below performs all of the steps above in a single batch job. First, create `test.c` as described in [step 3](#3-create-the-test-program). Then save the script as `test_cuda_and_mpi.sbatch` in the same directory and submit it with:
+The script below performs all of the steps above in a single [batch job](../running-jobs/slurm-basics.md#submitting-a-batch-job). First, create `test.c` as described in [step 3](#3-create-the-test-program). Then save the script as `test_cuda_and_mpi.sbatch` in the same directory and submit it with:
 
 ```bash
 sbatch test_cuda_and_mpi.sbatch
