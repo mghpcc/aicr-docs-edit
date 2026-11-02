@@ -23,6 +23,7 @@ nav:
 #    - Troubleshooting: running-jobs/troubleshooting.md
   - Recipes:
     - JAX: recipes/jax.md
+    - CUDA-Aware MPI: recipes/cuda-mpi.md
     - PyTorch on GPUs - I: recipes/pytorch-gpu.md
     - PyTorch on GPUs - II: recipes/pytorch-gpu-advanced.md
   - Getting Help: getting-help.md
