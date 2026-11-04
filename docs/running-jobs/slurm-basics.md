@@ -286,6 +286,27 @@ torchrun --nproc_per_node=8 train.py
 
 These nodes are also part of the `preemptable` partition, so a whole-node job will preempt any `preemptable` work running on the node it is assigned.
 
+## Reservations
+
+!!! warning "Reservations are arranged through your institution"
+
+AICR does not take reservation requests from individual users. Your institution decides which projects receive a reservation and requests it on their behalf at least one week in advance.
+
+A reservation holds up to three whole B200 nodes for a single project for up to one week. Jobs in a reservation have no per-job time limit. Reservations are a temporary offering while AICR develops a longer-term allocation framework, and the terms below may change.
+
+Try [`b200-fullnode`](#whole-node-b200-jobs-trial) first. It needs no request and suits work that fits in 24-hour runs or can checkpoint and resubmit. A reservation is for work that needs whole nodes continuously for several days.
+
+**Use it or lose it.** If no job is running in the reservation within 2 hours of its start, the reservation is cancelled and the nodes return to general use.
+
+**B200 only.** Reservations are not available on RTX nodes.
+
+**The `temp-reservation` partition.** Reserved jobs run in this partition. It can be used only with a reservation arranged through your institution.
+
+When your reservation is set up, your institution's support team will send instructions for submitting jobs to it.
+
+!!! info "Getting help with reservations"
+    Contact your institution's [support team](../getting-help.md\#institutional-support-teams) if you have questions about reservations, would like to request a reservation, or need help with an existing reservation.
+
 ## Fairshare and Priority
 
 AICR allocates resources fairly using a three-level hierarchy: **Institution → Project → User**. Your priority depends on recent usage relative to your institution's and project's allocation. Specify `--account` correctly and Slurm handles the rest.
