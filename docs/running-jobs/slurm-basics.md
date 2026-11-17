@@ -308,31 +308,7 @@ sacctmgr show user $USER withassoc format=user,account -p
 
 When you run a job think about what project that job is for, and specify the account for that project. This ensures your usage is accounted for in the correct project if you are on multiple projects.
 
-### Reordering Your Own Pending Jobs
-
-If you have several jobs waiting and want one of them to start first, move it to the top of your own queue:
-
-```
-scontrol top JOBID
-```
-
-To set an order for several jobs, list them comma-separated, first to last:
-
-```
-scontrol top 12345,12346,12340
-```
-
-This only reorders jobs that share **all** of the following with each other:
-
-- the same user (you)
-- the same partition (jobs submitted to more than one partition are not affected)
-- the same `--account`
-- the same QOS
-
-Jobs that don't match are left unchanged.
-
-!!! note "This does not move you ahead of other users"
-    `scontrol top` changes only the order of your pending jobs. It works by adjusting their nice values, raising the chosen job and lowering your others. Your overall priority against other users is still set by fairshare, and your total throughput stays about the same (or drops slightly).
+To change the order of your own pending jobs, see [Reorder Your Pending Jobs](monitoring.md#reorder-your-pending-jobs).
 
 ## Slurm Environment Variables
 
