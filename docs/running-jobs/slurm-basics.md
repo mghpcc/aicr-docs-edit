@@ -288,8 +288,9 @@ These nodes are also part of the `preemptable` partition, so a whole-node job wi
 
 ## Reservations
 
-!!! warning     
-    Reservations are intended for exceptional non-routine work that needs whole nodes continuously for several days. Reservations are arranged through your institution.
+!!! warning ""    
+    - Reservations are intended for exceptional non-routine work that needs whole nodes continuously for several days. 
+    - Reservations are arranged through your institution.
 
 
 AICR does not take reservation requests from individual users. Your institution decides which projects receive a reservation and requests it on their behalf at least one week in advance.
