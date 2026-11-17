@@ -290,7 +290,7 @@ These nodes are also part of the `preemptable` partition, so a whole-node job wi
 
 AICR allocates resources fairly using a three-level hierarchy: **Institution → Project → User**. Your priority depends on recent usage relative to your institution's and project's allocation. Specify `--account` correctly and Slurm handles the rest.
 
-To change the order of your own pending jobs, see [Reorder Your Pending Jobs](monitoring.md#reorder-your-pending-jobs).
+To change the order of your own pending jobs, see [Reorder Your Pending Jobs](monitoring.md#reordering-your-own-pending-jobs).
 
 ### Slurm Accounts
 
