@@ -290,6 +290,8 @@ These nodes are also part of the `preemptable` partition, so a whole-node job wi
 
 AICR allocates resources fairly using a three-level hierarchy: **Institution → Project → User**. Your priority depends on recent usage relative to your institution's and project's allocation. Specify `--account` correctly and Slurm handles the rest.
 
+To change the order of your own pending jobs, see [Reorder Your Pending Jobs](monitoring.md#reorder-your-pending-jobs).
+
 ### Slurm Accounts
 
 Slurm accounts are a way to associate a user's usage to a project. Everyone on AICR has a default account associated with their primary project. If you are part of multiple projects you may have multiple Slurm accounts.
@@ -308,7 +310,6 @@ sacctmgr show user $USER withassoc format=user,account -p
 
 When you run a job think about what project that job is for, and specify the account for that project. This ensures your usage is accounted for in the correct project if you are on multiple projects.
 
-To change the order of your own pending jobs, see [Reorder Your Pending Jobs](monitoring.md#reorder-your-pending-jobs).
 
 ## Slurm Environment Variables
 
