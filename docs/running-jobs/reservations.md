@@ -18,7 +18,7 @@ AICR does not take reservation requests from individual users. Your institution 
 
 A reservation holds up to three whole B200 nodes for a single project for up to one week. Jobs in a reservation have no per-job time limit. Reservations are a temporary offering while AICR develops a longer-term allocation framework, and the terms below may change.
 
-**Try [`b200-fullnode`](#whole-node-b200-jobs-trial) first.** It needs no request and suits work that fits in 24-hour runs or can checkpoint and resubmit. 
+**Try [`b200-fullnode`](slurm-basics.md#whole-node-b200-jobs-trial) first.** It needs no request and suits work that fits in 24-hour runs or can checkpoint and resubmit. 
 
 **Use it or lose it.** If no job is running in the reservation within 2 hours of its start, the reservation is cancelled and the nodes return to general use.
 
@@ -56,7 +56,7 @@ Look for `NodeCnt`, `StartTime`, and `EndTime` in the output.
 
 !!! warning "Start within two hours"
 
-    You must have a job running in the reservation within two hours of the start time. If the reservation is not in use by then, it will be cancelled and the nodes returned to general use. See the [reservation policy](<link to policy page>).
+    You must have a job running in the reservation within two hours of the start time. If the reservation is not in use by then, it will be cancelled and the nodes returned to general use.
 
 !!! tip "Submit your jobs before the reservation starts"
 
