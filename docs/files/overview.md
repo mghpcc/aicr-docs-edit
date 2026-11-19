@@ -15,6 +15,56 @@ See the table below for a description of each storage space.
 
 | Storage Type  | <div style="width:18em">Path</div> | Quota | Backed up | Purpose/Notes |
 | ----------- | ----------- |----------- |----------- |----------- |
-| Home Directory | `/home/<username>` | 100 GiB | 7 Day Snapshots | Use for important files and software |
-| Scratch | `/scratch/<username>/` | 10 TiB | **No Snapshots** | Scratch space for temporary files |
+| Home Directory | `/home/<username>` | 100 GB | 7 Day Snapshots | Use for important files and software |
+| Scratch | `/scratch/<username>/` | 10 TB | **No Snapshots** | Scratch space for temporary files |
 | Work | `/work/<institution>/<groupname>/` | Varies | 7 Day Snapshots | Shared project space |
+
+## Checking your storage usage
+
+Use the `getquota` command on a login node to see how much of your storage quota you have used. The tool is provided as a module, so load it first:
+
+```bash
+module add getquota
+getquota
+```
+
+!!! note
+    You need to run `module add getquota` in each new session before `getquota` is available. To load it automatically at login, add the command to your `~/.bashrc`.
+
+The report has two sections:
+
+- **Personal Quota**: your Home and Scratch directories.
+- **Shared Storage**: project spaces (such as Work) and shared areas you have access to.
+
+| Column  | Meaning                                                       |
+| ------- | ------------------------------------------------------------- |
+| GB / TB | Space currently used                                          |
+| Quota   | Space limit                                                   |
+| Files   | Number of files currently stored                              |
+| Limit   | Maximum number of files allowed                               |
+| Snap    | Whether the space has snapshots                               |
+| Purge   | Retention period, after which old files are deleted (Scratch) |
+
+!!! note "Report timing"
+    Quota data is collected every 10 minutes, and the report header shows when it was last collected. Changes such as new or deleted files may take a few minutes to appear.
+
+### Options
+
+| Option                          | Description                                                                |
+| ------------------------------- | -------------------------------------------------------------------------- |
+| `-u`, `--user <name>`           | Report storage available to a user                                         |
+| `-g`, `--group <name>`          | Report storage assigned to a group                                         |
+| `--extended`                    | With `-u`, include every apps and work space for the user's groups. With `-g`, include each member's Home and Scratch |
+| `--no-contributions`            | Hide per-user usage inside shared spaces (shown by default)                |
+| `-j`, `--json`                  | Output machine-readable JSON                                               |
+| `-v`, `--verbose`               | Include notices for groups that have no matching Work space                |
+| `--help`                        | Show all options                                                           |
+
+For example, to see usage across all of your project spaces:
+
+```bash
+getquota --extended
+```
+
+!!! tip "Running out of space or files?"
+    Both the space quota and the file-count limit apply. Clear out data you no longer need, or contact your institution's support team if you need a larger Work allocation. See [Getting Help](../../getting-help/).
