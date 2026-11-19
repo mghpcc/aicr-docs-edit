@@ -15,8 +15,8 @@ See the table below for a description of each storage space.
 
 | Storage Type  | <div style="width:18em">Path</div> | Quota | Backed up | Purpose/Notes |
 | ----------- | ----------- |----------- |----------- |----------- |
-| Home Directory | `/home/<username>` | 100 GB | 7 Day Snapshots | Use for important files and software |
-| Scratch | `/scratch/<username>/` | 10 TB | **No Snapshots** | Scratch space for temporary files |
+| Home Directory | `/home/<username>` | 100 GiB | 7 Day Snapshots | Use for important files and software |
+| Scratch | `/scratch/<username>/` | 10 TiB | **No Snapshots** | Scratch space for temporary files |
 | Work | `/work/<institution>/<groupname>/` | Varies | 7 Day Snapshots | Shared project space |
 
 ## Checking your storage usage
@@ -38,7 +38,7 @@ The report has two sections:
 
 | Column  | Meaning                                                       |
 | ------- | ------------------------------------------------------------- |
-| GB / TB | Space currently used                                          |
+| GiB / TiB | Space currently used                                          |
 | Quota   | Space limit                                                   |
 | Files   | Number of files currently stored                              |
 | Limit   | Maximum number of files allowed                               |
