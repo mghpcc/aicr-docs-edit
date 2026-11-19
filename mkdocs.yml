@@ -21,6 +21,7 @@ nav:
 #    - Job Arrays: running-jobs/job-arrays.md
     - Monitoring: running-jobs/monitoring.md
 #    - Troubleshooting: running-jobs/troubleshooting.md
+    - Reservations: running-jobs/reservations.md
   - Recipes:
     - JAX: recipes/jax.md
     - PyTorch on GPUs - I: recipes/pytorch-gpu.md
