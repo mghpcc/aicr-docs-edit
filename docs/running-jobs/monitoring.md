@@ -102,6 +102,32 @@ Cancel a specific array task:
 scancel JOBID_TASKID
 ```
 
+## Reordering Your Own Pending Jobs
+
+If you have several jobs waiting and want one of them to start first, move it to the top of your own queue:
+
+```
+scontrol top JOBID
+```
+
+To set an order for several jobs, list them comma-separated, first to last:
+
+```
+scontrol top 12345,12346,12340
+```
+
+This only reorders jobs that share **all** of the following with each other:
+
+- the same user (you)
+- the same partition (jobs submitted to more than one partition are not affected)
+- the same `--account`
+- the same QOS
+
+Jobs that don't match are left unchanged.
+
+!!! note "This does not move you ahead of other users"
+    `scontrol top` changes only the order of your pending jobs. It works by adjusting their nice values, raising the chosen job and lowering your others. Your overall priority against other users is still set by [fairshare](slurm-basics.md#fairshare-and-priority), and your total throughput stays about the same (or drops slightly).
+
 ## Checking GPU Utilization in a Running Job
 
 If you have a running GPU job, check GPU utilization by connecting to the node:
